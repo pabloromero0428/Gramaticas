@@ -5,17 +5,20 @@
  */
 package teoria;
 
-/**
- *
- * @author pablo.romero
- */
-public class Teoria {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+import Vistas.Principalgramaticas;
+import java.awt.FlowLayout;
+import java.io.IOException;
+import javax.swing.JFrame;
+
+public class Teoria {
     
+    
+    public static void main(String[] args) throws IOException {
+
+        Principalgramaticas pg = new  Principalgramaticas();
+        pg.setVisible(true);
+
+    }
+
 }
