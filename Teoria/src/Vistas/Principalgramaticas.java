@@ -47,6 +47,7 @@ public class Principalgramaticas extends javax.swing.JFrame {
 
         txtgramatica.setColumns(20);
         txtgramatica.setRows(5);
+        txtgramatica.setEnabled(false);
         jScrollPane1.setViewportView(txtgramatica);
 
         jButton1.setText("jButton1");
