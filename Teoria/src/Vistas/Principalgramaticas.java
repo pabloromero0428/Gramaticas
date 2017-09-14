@@ -113,6 +113,7 @@ public class Principalgramaticas extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
       Gramatica g = new Gramatica(txtgramatica.getText());
+      
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
