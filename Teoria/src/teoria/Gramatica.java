@@ -6,12 +6,16 @@
 package teoria;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
  * @author JuanPablo
  */
 public class Gramatica {
+
+    public Gramatica() {
+    }
 
     public Gramatica(String archivo) {
 
@@ -34,13 +38,17 @@ public class Gramatica {
 //        for (int i = 0; i < Gramaticatokenizada.length; i++) {
 //            System.out.println("Posicion: " +i + "caracater: " + Gramaticatokenizada[i]);
 //        }
-        Vivos(Gramaticatokenizada);
+
+          Vivos(Gramaticatokenizada);
     }
 
     public void Vivos(String[] gramatica) {
         ArrayList<String> TV = new ArrayList<>();
         ArrayList<String> NVivos = new ArrayList<>();
         ArrayList<Integer> posArray = new ArrayList<Integer>();
+
+        ArrayList<Integer> actual = new ArrayList<Integer>();
+
         String Nvivos = "";
         boolean hayVivos = false;
 
@@ -51,6 +59,7 @@ public class Gramatica {
                 if (encontrado == -1) {
                     TV.add(posicion);
                     String Nviv = gramatica[i - 1];
+                    actual.add(i);
                     NVivos.add(Nviv);
                     posArray.add(i - 1);
                     Nvivos = Nvivos.concat(Nviv);
@@ -60,12 +69,11 @@ public class Gramatica {
             }
         }
 
-        String[] NoVivos = NVivos.stream().toArray(String[]::new);
         while (hayVivos == true) {
             int conteo = 0;
-
+            hayVivos = false;
             for (int i = 0; i < gramatica.length; i++) {
-                if (i % 2 != 0) {
+                if (i % 2 != 0 && !actual.contains(i)) {
                     boolean continuar = true;
                     String posicion = gramatica[i];
                     String[] porpos = posicion.split(">");
@@ -90,15 +98,8 @@ public class Gramatica {
                     if (continuar == true) {
                         String Nviv = gramatica[i - 1];
                         boolean esta = false;
-                        for (int j = 0; j < NoVivos.length; j++) {
-                            if (NoVivos[j].equals(Nviv)) {
-                                esta = true;
-                            }
-                            else {
-                                hayVivos=false;
-                            }
-                        }
-                        if (esta == false) {
+                        if (!Nvivos.contains(Nviv)) {
+                            actual.add(i);
                             TV.add(posicion);
                             NVivos.add(Nviv);
                             posArray.add(i - 1);
@@ -106,12 +107,15 @@ public class Gramatica {
                             hayVivos = true;
                         }
 
-                    } else {
-                        hayVivos = false;
                     }
 
                 }
             }
+        }
+        Iterator<String> nombreIterator = NVivos.iterator();
+        while (nombreIterator.hasNext()) {
+            String elemento = nombreIterator.next();
+            System.out.print(elemento + " / ");
         }
 
     }
