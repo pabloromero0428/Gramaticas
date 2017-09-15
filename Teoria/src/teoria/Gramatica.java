@@ -7,12 +7,15 @@ package teoria;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author JuanPablo
  */
 public class Gramatica {
+
+    ArrayList<Integer> posArray = new ArrayList<Integer>();
 
     public Gramatica() {
     }
@@ -33,19 +36,20 @@ public class Gramatica {
             }
 
         }
+
         String[] Gramaticatokenizada = arreglotokenizado.stream().toArray(String[]::new);
 
 //        for (int i = 0; i < Gramaticatokenizada.length; i++) {
 //            System.out.println("Posicion: " +i + "caracater: " + Gramaticatokenizada[i]);
 //        }
-
-          Vivos(Gramaticatokenizada);
+        Vivos(Gramaticatokenizada);
+        Muertos(Vivos(Gramaticatokenizada), Gramaticatokenizada);
     }
 
-    public void Vivos(String[] gramatica) {
+    public String Vivos(String[] gramatica) {
+
         ArrayList<String> TV = new ArrayList<>();
         ArrayList<String> NVivos = new ArrayList<>();
-        ArrayList<Integer> posArray = new ArrayList<Integer>();
 
         ArrayList<Integer> actual = new ArrayList<Integer>();
 
@@ -55,6 +59,7 @@ public class Gramatica {
         for (int i = 0; i < gramatica.length; i++) {
             if (i % 2 != 0) {
                 String posicion = gramatica[i];
+                posicion = posicion.trim();
                 int encontrado = posicion.indexOf("<");
                 if (encontrado == -1) {
                     TV.add(posicion);
@@ -67,6 +72,11 @@ public class Gramatica {
                 }
 
             }
+        }
+
+        if (hayVivos == false) {
+
+            JOptionPane.showMessageDialog(null, "NO HAY VIVOS NI MUERTOS");
         }
 
         while (hayVivos == true) {
@@ -82,7 +92,7 @@ public class Gramatica {
                             if (continuar != false) {
 
                                 String ps = porpos[j];
-
+                                ps = ps.trim();
                                 int signo = ps.indexOf("<");
                                 ps = ps.substring(signo, ps.length());
                                 int encontrado = Nvivos.indexOf(ps);
@@ -113,11 +123,38 @@ public class Gramatica {
             }
         }
         Iterator<String> nombreIterator = NVivos.iterator();
+//        while (nombreIterator.hasNext()) {
+//            String elemento = nombreIterator.next();
+//            System.out.print(elemento + " / ");
+//        }
+
+        return (Nvivos);
+
+    }
+
+    public String Muertos(String NVivos, String[] gramatica) {
+        ArrayList<String> Nmuertos = new ArrayList<>();
+        String Ntmuertos = "";
+        for (int i = 0; i < gramatica.length; i++) {
+            if (i % 2 == 0) {
+                String palabra = gramatica[i];
+                int encontrado = NVivos.indexOf(palabra);
+                if (encontrado == -1) {
+                    if (!Ntmuertos.contains(palabra)) {
+                        Nmuertos.add(palabra);
+                        Ntmuertos = Ntmuertos.concat(palabra);
+                    }
+                }
+            }
+
+        }
+        Iterator<String> nombreIterator = Nmuertos.iterator();
         while (nombreIterator.hasNext()) {
             String elemento = nombreIterator.next();
             System.out.print(elemento + " / ");
         }
 
+        return (Ntmuertos);
     }
 
 }
