@@ -30,6 +30,39 @@ public class Principalgramaticas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
     }
+    
+        
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Automata.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Automata.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Automata.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Automata.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Principalgramaticas().setVisible(true);
+            }
+        });
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,10 +90,10 @@ public class Principalgramaticas extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 650));
-        setPreferredSize(new java.awt.Dimension(561, 561));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtgramatica.setColumns(20);
@@ -159,6 +192,15 @@ public class Principalgramaticas extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 200, 60));
 
+        jButton2.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
+        jButton2.setText("Automata ");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 529, 170, 60));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -215,7 +257,24 @@ public class Principalgramaticas extends javax.swing.JFrame {
         txtgramatica.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    Automata a = new Automata();
+    Gramatica g = new Gramatica();
+        String[] gram = g.Gramatica(txtgramatica.getText());
+        txtVivos.setText(g.Vivos(gram));
+        txtMuertos.setText(g.Muertos(txtVivos.getText(), gram));
+        txtInalcanzables.setText(g.inalcanzables(gram));
+    a.setVisible(true);
+    super.dispose();
+    a.gramaticaSimplificada2.setText(g.impresion(g.posArray,g.posAlcanzablesArray,gram));
+    g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram));
+    g.pares(g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram)));
+    g.impares(g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram)));
+    g.matriz(g.pares(g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram))),g.impares(g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram))));
+   
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    /**u
      * @param args the command line arguments
      */
 //    public static void main(String args[]) {
@@ -257,6 +316,7 @@ public class Principalgramaticas extends javax.swing.JFrame {
     private javax.swing.JButton btnmodificar;
     private javax.swing.JButton btnsimplificar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -267,6 +327,6 @@ public class Principalgramaticas extends javax.swing.JFrame {
     private javax.swing.JTextField txtInalcanzables;
     private javax.swing.JTextField txtMuertos;
     private javax.swing.JTextField txtVivos;
-    private javax.swing.JTextArea txtgramatica;
+    public static transient javax.swing.JTextArea txtgramatica;
     // End of variables declaration//GEN-END:variables
 }

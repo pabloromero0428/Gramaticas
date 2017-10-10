@@ -22,31 +22,34 @@ public class Gramatica {
     public String NMuertos;
     public String NInalcanzables;
     public String Nuevaimpresion;
+    int paresR=0;
+    int imparesR=0;
 
     public Gramatica() {
     }
 
-   /**
-    * METODO EL CUAL CREA UN ARREGLO CON LOS ELEMENTOS DE LA GRAMATICA
-    * @param archivo
-    * @return 
-    */
+    /**
+     * METODO EL CUAL CREA UN ARREGLO CON LOS ELEMENTOS DE LA GRAMATICA
+     *
+     * @param archivo
+     * @return
+     */
     public String[] Gramatica(String archivo) {
 
         String[] primertoken = archivo.split("\n");//arreglo con cada reglos del texto(el cual tiene la gramatica)
         String[] tokenfinal = null;// arreglo que tendra de cada renglon el string antes y despues del =
         ArrayList<String> arreglotokenizado = new ArrayList<>(); //arraylist para almacenar todos os elementos separados      
-        for (int i = 0; i < primertoken.length; i++) { 
+        for (int i = 0; i < primertoken.length; i++) {
             String palabra = primertoken[i]; //String que almacena la palabra i del primer arreglo
-            tokenfinal = palabra.split("="); 
+            tokenfinal = palabra.split("=");
             for (int j = 0; j < tokenfinal.length; j++) {
                 String palabra1 = tokenfinal[j]; //String que almacena la palabra j del segundo arreglo
                 arreglotokenizado.add(palabra1);
             }
         }
-        String[] Gramaticatokenizada = arreglotokenizado.stream().toArray(String[]::new);       
+        String[] Gramaticatokenizada = arreglotokenizado.stream().toArray(String[]::new);
 
-        return(Gramaticatokenizada);
+        return (Gramaticatokenizada);
     }
 
     /**
@@ -188,12 +191,9 @@ public class Gramatica {
                 if (Nalcanzables.contains(palabrai)) {
                     Alcanzables.add(palabrai);
                     posAlcanzablesArray.add(i);
-                } else {
-                    if (!Ninalcanzables.contains(palabrai)) {
-                        Ninalcanzables = Ninalcanzables.concat(palabrai);
-                        Inalcanzables.add(palabrai);
-                    }
-
+                } else if (!Ninalcanzables.contains(palabrai)) {
+                    Ninalcanzables = Ninalcanzables.concat(palabrai);
+                    Inalcanzables.add(palabrai);
                 }
             }
         }
@@ -243,4 +243,148 @@ public class Gramatica {
         return (Ngramatica);
     }
 
+    public String[] generarAF(String NString) {
+        String variable1="";
+        String[] tokens = NString.split("\n");
+        String[] tokens2 = null;
+        String[] tokens3 = null;
+        ArrayList<String> arreglo = new ArrayList<>();
+
+        for (int i = 0; i < tokens.length; i++) {
+            System.out.println(tokens[i]);
+            String variable = tokens[i];
+            tokens2 = variable.split("=");
+        
+        for (int j = 0; j < tokens2.length; j++) {
+            System.out.println(tokens2[j]);
+            //variable1 = tokens2[j];
+            arreglo.add(tokens2[j]);
+        }
+        }
+        String[] Gramaticatokenizada1 = arreglo.stream().toArray(String[]::new);
+        return (Gramaticatokenizada1);
+}
+    public String[] pares (String[] gramatica){
+        
+        String variable1= "";
+        String variable2="";
+        String [] pares= null;
+        String [] copia= null;
+        String [] original=null;
+         ArrayList<String> arreglo3 = new ArrayList<>();
+         ArrayList<String> arreglo4 = new ArrayList<>();
+        int n =0;
+        for (int i = 0; i < gramatica.length; i++) {
+            variable1=gramatica[i];
+            arreglo3.add(variable1);     
+        }
+        original=arreglo3.stream().toArray(String[]::new);
+        copia =arreglo3.stream().toArray(String[]::new);
+       for (int j = 0; j < copia.length; j++) {
+           if(j%2==0){
+           variable2=copia[j];
+           arreglo4.add(variable2);
+           }           
+       }  
+       pares = arreglo4.stream().toArray(String[]::new);
+        
+        return(pares);
+    }
+    
+    
+    public String[] impares (String[] gramatica ){
+        
+         String variable1= "";
+        String variable2="";
+        String [] impares= null;
+        String [] copia= null;
+         ArrayList<String> arreglo4 = new ArrayList<>();
+         ArrayList<String> arreglo5 = new ArrayList<>();
+        int n =0;
+        for (int i = 0; i < gramatica.length; i++) {
+            variable1=gramatica[i];
+            arreglo4.add(variable1);     
+        }
+        copia =arreglo4.stream().toArray(String[]::new);
+       for (int j = 0; j < copia.length; j++) {
+           if(j%2!=0){
+           variable2=copia[j];
+           arreglo5.add(variable2);
+           }           
+       }  
+       impares = arreglo5.stream().toArray(String[]::new);
+        
+        return(impares);
+    }
+    
+  public String[][] matriz (String[] pares,String[]impares){
+      
+      
+      ArrayList<String> paresSinR = new ArrayList<>();
+      ArrayList<String> imparesSinR = new ArrayList<>();
+      String primeraFila="";
+      String primeraColumna="";
+      
+      for (int i = 0; i < pares.length; i++) {
+          String palabraA = pares[i];
+          if(!primeraColumna.contains(palabraA)){
+              primeraColumna=primeraColumna.concat(palabraA);
+              paresSinR.add(palabraA);
+          }
+      }
+      for (int j = 0; j < impares.length; j++) {
+          String[] actual= impares[j].split("<");
+          String palabraActual = actual[0];
+          if(!primeraFila.contains(palabraActual)){
+              primeraFila=primeraFila.concat(palabraActual);
+              imparesSinR.add(palabraActual);
+          }
+      }
+       String[] vectorParesSin = paresSinR.stream().toArray(String[]::new);
+       String[] vectorImparesSin = imparesSinR.stream().toArray(String[]::new);
+       
+       String[][] Matrix = new String[vectorParesSin.length+1][vectorImparesSin.length+1];
+       paresR=vectorParesSin.length+1;
+       imparesR=vectorImparesSin.length+1;
+       
+       for (int k = 0; k < vectorParesSin.length; k++) {
+           String palabraAG=vectorParesSin[k];
+           Matrix[k+1][0]=palabraAG;
+      }
+       
+       for (int l = 0; l < vectorImparesSin.length; l++) {
+           String palabraAG= vectorImparesSin[l];
+           Matrix[0][l+1]=palabraAG;
+      }
+       
+       for (int m = 0; m < impares.length; m++) {
+          String palabraACI=impares[m];
+          int x = primeraFila.indexOf(palabraACI.substring(0, 1));
+          String palabraACP=pares[m];
+           int y=0;
+           for (int n = 0; n < vectorParesSin.length; n++) {
+               if(vectorParesSin[n]== palabraACP){
+                  y =n;
+               }
+               
+           }
+           
+           if(Matrix[x][y]== ""){
+               Matrix[x+1][y+1]=palabraACI.substring(1,palabraACI.length());
+               
+       }else{
+               String palabraMatrix = Matrix[x][y];
+               Matrix[x+1][y+1]=palabraMatrix.concat(",").concat(palabraACI);
+           }
+            
+      }
+       
+    
+       
+       
+       return (Matrix);
+  }
+    
+  
+    
 }
