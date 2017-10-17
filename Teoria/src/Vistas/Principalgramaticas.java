@@ -260,6 +260,7 @@ public class Principalgramaticas extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
     Automata a = new Automata();
     Gramatica g = new Gramatica();
+    
         String[] gram = g.Gramatica(txtgramatica.getText());
         txtVivos.setText(g.Vivos(gram));
         txtMuertos.setText(g.Muertos(txtVivos.getText(), gram));

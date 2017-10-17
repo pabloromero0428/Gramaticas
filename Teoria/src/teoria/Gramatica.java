@@ -5,10 +5,13 @@
  */
 package teoria;
 
+import Vistas.Automata;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -334,6 +337,7 @@ public class Gramatica {
         for (int j = 0; j < impares.length; j++) {
             String[] actual = impares[j].split("<");
             String palabraActual = actual[0];
+            palabraActual = palabraActual.trim();
             if (!primeraFila.contains(palabraActual)) {
                 primeraFila = primeraFila.concat(palabraActual);
                 imparesSinR.add(palabraActual);
@@ -355,45 +359,66 @@ public class Gramatica {
             String palabraAG = vectorImparesSin[l];
             Matrix[0][l + 1] = palabraAG;
         }
-//
-//        for (int m = 0; m < impares.length; m++) {
-//            String palabraACI = impares[m];
-//            int x = primeraFila.indexOf(palabraACI.substring(0, 1));
-//            String palabraACP = pares[m];
-//            int y = 0;
-//            for (int n = 0; n < vectorParesSin.length; n++) {
-//                String palabra = vectorParesSin[n];
-//                if (palabra.equals(palabraACP)) {
-//                    y = n;
-//                }
-//
-//            }
-//            String actual = Matrix[x+1][y+1];
-//            if (actual.equals("")) {
-//                Matrix[x + 1][y + 1] = palabraACI.substring(1, palabraACI.length());
-//
-//            }//else{
-////               String palabraMatrix = Matrix[x][y];
-////               Matrix[x+1][y+1]=palabraMatrix.concat(",").concat(palabraACI);
-////           }
-//
-//            
-//        }
-        for (int i = 0; i < Matrix.length; i++) {
-                System.out.print("|");
-                for (int j = 0; j < Matrix[i].length; j++) {
-                    System.out.println(Matrix[i][j]);
-                    if (j != Matrix[i].length - 1) {
-                        System.out.print("\t");
+
+        for (int m = 0; m < impares.length; m++) {
+            String palabraACI = impares[m];
+            if (palabraACI.substring(1, 2).equals("<")) {
+
+                String a = palabraACI.substring(0, 1);
+                int x = primeraFila.indexOf(palabraACI.substring(0, 1));
+                String palabraACP = pares[m];
+                int y = 0;
+                for (int n = 0; n < vectorParesSin.length; n++) {
+                    String palabra = vectorParesSin[n];
+                    if (palabra.equals(palabraACP)) {
+                        y = n;
                     }
 
                 }
-                System.out.println("|");
+
+                String actual = "";
+                if (x == vectorImparesSin.length - 1 && y == vectorParesSin.length - 1) {
+
+                    actual = Matrix[paresR-1][y];
+                    if (actual == null) {
+                        Matrix[paresR-1][y] = palabraACI.substring(1, palabraACI.length());
+
+                    } else {
+                        String palabraMatrix = Matrix[x][y];
+                        Matrix[paresR-1][y] = palabraMatrix.concat(",").concat(palabraACI.substring(1, palabraACI.length()));
+                    }
+                }
+                else {
+                    actual = Matrix[x + 1][y + 1];
+                    if (actual == null) {
+                        Matrix[x + 1][y + 1] = palabraACI.substring(1, palabraACI.length());
+
+                    } else {
+                        String palabraMatrix = Matrix[x][y];
+                        Matrix[x + 1][y + 1] = palabraMatrix.concat(",").concat(palabraACI.substring(1, palabraACI.length()));
+                    }
+                }
+
             }
-        
-        
+
+        }
 
         return (Matrix);
+    }
+    
+    Automata a = new Automata();
+    
+     public void TablaAutomata(String Matriz[][]){
+        DefaultTableModel model = (DefaultTableModel) a.Automataf.getModel();
+        model.setRowCount(paresR+2);
+        model.setColumnCount(imparesR+2);
+         for (int i = 0; i < paresR+1; i++) {
+             for (int j = 0; j < imparesR+1; j++) {
+                 a.Automataf.setValueAt(Matriz[i][j], i, j);
+             }
+         }
+        
+       
     }
 
 }
