@@ -7,8 +7,12 @@ package Controlador;
 
 
 import Modelo.ArchivoGramatica.AutomataFinito;
+import Modelo.ArchivoGramatica.Estado;
 import Modelo.ArchivoGramatica.ServiciosAF;
+import Modelo.ArchivoGramatica.Transicion;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 /**
  *
@@ -39,5 +43,46 @@ public class ControlAutomata {
             cabecera[i] = simbolo.toString();
             i++;
         }return(cabecera);
+    }
+       
+       public String[][] dataParaModelo(){
+        ArrayList simbolos = automata.getSimbolosDeEntrada();
+        Hashtable dataAutomata = automata.getEstados();
+        int totalColumnas = simbolos.size()+2, posicion;
+        String[][] data = new String[dataAutomata.size()][totalColumnas];
+        Estado est;
+        Transicion transicion;
+        String estadoDestino;
+        char simbolo;
+        Enumeration<Estado> estados = dataAutomata.keys();
+        ArrayList<Transicion> transiciones;
+        ArrayList<Estado> estadosOrdenados = serviciosAf.ordenarEstados(automata, estados);
+        serviciosAf.completarSort(estadosOrdenados);
+        int posicionSimbolo, i = 0; 
+        for(int j=0; j<estadosOrdenados.size(); j++){
+            est = estadosOrdenados.get(j);
+            transiciones = (ArrayList<Transicion>)dataAutomata.get(est);
+            data[i][0] = est.getId();
+            if(est.esEstadoDeAceptacion())
+                data[i][totalColumnas-1] = "1";
+            else
+                data[i][totalColumnas-1] = "0";
+            transiciones = (ArrayList<Transicion>)dataAutomata.get(est);
+            for(int k=0; k < transiciones.size(); k++){
+                transicion = transiciones.get(k);
+                simbolo = transicion.getSimbolo();
+                posicion = (simbolos.indexOf(simbolo))+1;
+                if(transicion.getDestino() == null)
+                    estadoDestino = "";
+                else
+                    estadoDestino = transicion.getDestino().getId();
+                if(data[i][posicion] == null)
+                    data[i][posicion] = estadoDestino;
+                else{
+                    data[i][posicion] = data[i][posicion]+","+estadoDestino;
+                }
+            }i++;
+        }
+        return(data);
     }
 }

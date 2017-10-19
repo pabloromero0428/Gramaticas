@@ -8,6 +8,7 @@ package Vistas;
 import Controlador.ControlAutomata;
 import Controlador.ControlServicios;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,5 +29,11 @@ public class GestionAutomata {
         ArrayList<Character> simbolosDeEntrada = controlS.convertirSimbolosDeEntrada(simbolos);
         controlA.crearAutomata(simbolosDeEntrada);
     }
-    
+      
+    public DefaultTableModel cargarAutomataEnVista (){
+        String[] cabecera= this.controlA.cabeceraParaModelo();
+        String[][] data = this.controlA.dataParaModelo();
+        return (new DefaultTableModel(data , cabecera));
+        
+    }
 }

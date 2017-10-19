@@ -17,7 +17,7 @@ import Vistas.Automata;
 public class Automatas {
     
     
-    Gramatica g;
+    Gramatica g = new Gramatica();
     Automata a;
     public String[][] matriz(String[] pares, String[] impares) {
 
@@ -106,16 +106,20 @@ public class Automatas {
     }
     
      public void TablaAutomata(String Matriz[][]){
-        DefaultTableModel model = (DefaultTableModel) a.Automataf.getModel();
+        DefaultTableModel model = (DefaultTableModel) a.automataF.getModel();
         model.setRowCount(g.paresR+2);
         model.setColumnCount(g.imparesR+2);
          for (int i = 0; i < g.paresR+1; i++) {
              for (int j = 0; j < g.imparesR+1; j++) {
-                 a.Automataf.setValueAt(Matriz[i][j], i, j);
+                 a.automataF.setValueAt(Matriz[i][j], i, j);
              }
          }
+         
+
         
        
     }
+              
+   
    
 }

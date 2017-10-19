@@ -10,5 +10,25 @@ package Modelo.ArchivoGramatica;
  * @author kevin
  */
 public class Transicion {
+        private char simbolo;
+    private Estado destino;
+
+    public Transicion(char simbolo, Estado estado){
+        this.simbolo = simbolo;
+        this.destino = estado;
+    }
+    
+    public char getSimbolo() {
+        return simbolo;
+    }
+
+    public Estado getDestino() {
+        return destino;
+    }
+    
+    public void setDestino(Estado estadoDestino){
+        this.destino = estadoDestino;
+    }
+
     
 }

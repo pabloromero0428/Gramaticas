@@ -11,4 +11,21 @@ package Modelo.ArchivoGramatica;
  */
 public class Estado {
     
+    private String id;
+    private boolean estadoDeAceptacion;
+    private boolean estadoUnificado;
+
+     public Estado(String nombre, boolean estAceptacion){
+         
+        this.id = nombre;
+        this.estadoDeAceptacion = estAceptacion;
+        this.estadoUnificado = false;
+    }
+    
+     public String getId() {
+        return id;
+    }
+        public boolean esEstadoDeAceptacion() {
+        return estadoDeAceptacion;
+    }
 }

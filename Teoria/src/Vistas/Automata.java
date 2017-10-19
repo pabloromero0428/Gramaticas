@@ -17,7 +17,8 @@ import teoria.Gramatica;
  * @author kevin
  */
 public class Automata extends javax.swing.JFrame {
-
+    
+    
     private DefaultTableModel model;
     private ControlAutomata controlA;
     private GestionAutomata gestA;
@@ -49,7 +50,7 @@ public class Automata extends javax.swing.JFrame {
      private void nuevoModelo(Object[] nombreColumnas){
         model = new DefaultTableModel();
         model.setColumnIdentifiers(nombreColumnas);
-        this.Automataf.setModel(model);
+        this.automataF.setModel(model);
     }
      
    private Object[] crearCabecera(ArrayList<String> simbolos){
@@ -60,11 +61,14 @@ public class Automata extends javax.swing.JFrame {
         for(int i=0; i<tamaño-2; i++){
             cabecera[i+1] = simbolos.get(i);
         }return(cabecera);
-   
-    
+ 
    }
-
-  
+   private void cargarAutomataVista(){
+       model=gestA.cargarAutomataEnVista();
+       automataF.setModel(model);
+       
+   }
+           
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -76,7 +80,7 @@ public class Automata extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         automataSimplificado = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        Automataf = new javax.swing.JTable();
+        automataF = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,18 +101,18 @@ public class Automata extends javax.swing.JFrame {
         automataSimplificado.setRows(5);
         jScrollPane3.setViewportView(automataSimplificado);
 
-        Automataf.setModel(new javax.swing.table.DefaultTableModel(
+        automataF.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane2.setViewportView(Automataf);
+        jScrollPane2.setViewportView(automataF);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -156,13 +160,15 @@ public class Automata extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void generarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarActionPerformed
-           
+        Gramatica a = new Gramatica();
+        String simbolos =  a.agregarComa();
+        this.crearAutomata(simbolos);
     }//GEN-LAST:event_generarActionPerformed
 
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JTable Automataf;
+    public javax.swing.JTable automataF;
     private javax.swing.JTextArea automataSimplificado;
     private javax.swing.JButton generar;
     public static javax.swing.JTextArea gramaticaSimplificada2;

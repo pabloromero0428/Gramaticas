@@ -33,5 +33,34 @@ public class AutomataFinito {
       public ArrayList getSimbolosDeEntrada(){
       return (simbolosDeEntrada);
     }
+       public Hashtable getEstados(){
+        return (estados);
+    }
+    
+    
+    public void setEstadoInicial(Estado est){
+        this.estadoInicial = est;
+    }
+    
+    public Estado getEstadoInicial(){
+        return (estadoInicial);
+    }
+    
+    public boolean esDeterministico(){
+        return (esDeterministico);
+    }
+    
+    protected void setDeterminismo(boolean valor){
+        this.esDeterministico = valor;
+    }
+    
+    public boolean automataSimplificado(){
+        return (automataSimplificado);
+    }
+    
+    public void setSimplificado(boolean valor){
+        this.automataSimplificado = valor;
+    }
+    
     
 }

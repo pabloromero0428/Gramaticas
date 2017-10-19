@@ -25,6 +25,8 @@ public class Gramatica {
     public String NMuertos;
     public String NInalcanzables;
     public String Nuevaimpresion;
+    ArrayList<String> paresSinR = new ArrayList<>();
+    ArrayList<String> imparesSinR = new ArrayList<>();
     int paresR = 0;
     int imparesR = 0;
 
@@ -322,8 +324,7 @@ public class Gramatica {
 
     public String[][] matriz(String[] pares, String[] impares) {
 
-        ArrayList<String> paresSinR = new ArrayList<>();
-        ArrayList<String> imparesSinR = new ArrayList<>();
+      
         String primeraFila = "";
         String primeraColumna = "";
 
@@ -360,7 +361,7 @@ public class Gramatica {
             Matrix[0][l + 1] = palabraAG;
         }
 
-        for (int m = 0; m < impares.length; m++) {
+        for (int m = 0; m < impares.length-1; m++) {
             String palabraACI = impares[m];
             if (palabraACI.substring(1, 2).equals("<")) {
 
@@ -405,20 +406,29 @@ public class Gramatica {
 
         return (Matrix);
     }
-    
-    Automata a = new Automata();
-    
-     public void TablaAutomata(String Matriz[][]){
-        DefaultTableModel model = (DefaultTableModel) a.Automataf.getModel();
-        model.setRowCount(paresR+2);
-        model.setColumnCount(imparesR+2);
-         for (int i = 0; i < paresR+1; i++) {
-             for (int j = 0; j < imparesR+1; j++) {
-                 a.Automataf.setValueAt(Matriz[i][j], i, j);
-             }
+      public String  agregarComa(){
+         
+      String[] vectorImparesSin2 = imparesSinR.stream().toArray(String[]::new);
+         for (int i = 0; i < vectorImparesSin2.length; i++) {
+             System.out.println("entre");
+             System.out.println(vectorImparesSin2[i]);
          }
-        
-       
-    }
+          for (int i = 0; i < vectorImparesSin2.length-1; i++) {
+              vectorImparesSin2[i]=vectorImparesSin2[i].concat(",");
+          }
+          String a = "";
+          for (int i = 0; i < vectorImparesSin2.length; i++) {
+              a = a.concat(vectorImparesSin2[i]);
+          }
+          System.out.println("esooooo");
+          System.out.println(a);
+          return (a);
+         
+     }
+      
+    
+    
+   
+    
 
 }
