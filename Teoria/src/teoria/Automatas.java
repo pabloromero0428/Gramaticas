@@ -105,20 +105,7 @@ public class Automatas {
         return (Matrix);
     }
     
-     public void TablaAutomata(String Matriz[][]){
-        DefaultTableModel model = (DefaultTableModel) a.automataF.getModel();
-        model.setRowCount(g.paresR+2);
-        model.setColumnCount(g.imparesR+2);
-         for (int i = 0; i < g.paresR+1; i++) {
-             for (int j = 0; j < g.imparesR+1; j++) {
-                 a.automataF.setValueAt(Matriz[i][j], i, j);
-             }
-         }
-         
-
-        
-       
-    }
+   
               
    
    

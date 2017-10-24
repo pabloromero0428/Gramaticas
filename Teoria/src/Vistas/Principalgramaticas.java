@@ -271,7 +271,7 @@ public class Principalgramaticas extends javax.swing.JFrame {
     g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram));
     g.pares(g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram)));
     g.impares(g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram)));
-    g.matriz(g.pares(g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram))),g.impares(g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram))));
+    g.matriz(g.pares(g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram))),g.impares(g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram))),a.matrix);
     g.agregarComa();
     Automata s = new Automata();
 

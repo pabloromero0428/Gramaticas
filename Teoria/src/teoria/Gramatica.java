@@ -6,12 +6,14 @@
 package teoria;
 
 import Vistas.Automata;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 
 /**
  *
@@ -21,6 +23,9 @@ public class Gramatica {
 
     public ArrayList<Integer> posArray = new ArrayList<Integer>();
     public ArrayList<Integer> posAlcanzablesArray = new ArrayList<Integer>();
+    String [] vectordepares;
+    String[] vectordeimpares;
+
     public String NVivos;
     public String NMuertos;
     public String NInalcanzables;
@@ -29,6 +34,7 @@ public class Gramatica {
     ArrayList<String> imparesSinR = new ArrayList<>();
     int paresR = 0;
     int imparesR = 0;
+    String[] Agregar;
 
     public Gramatica() {
     }
@@ -322,9 +328,8 @@ public class Gramatica {
         return (impares);
     }
 
-    public String[][] matriz(String[] pares, String[] impares) {
+    public String[][] matriz(String[] pares, String[] impares, JTable w) {
 
-      
         String primeraFila = "";
         String primeraColumna = "";
 
@@ -350,7 +355,9 @@ public class Gramatica {
         String[][] Matrix = new String[vectorParesSin.length + 1][vectorImparesSin.length + 1];
         paresR = vectorParesSin.length + 1;
         imparesR = vectorImparesSin.length + 1;
-
+vectordeimpares = vectorImparesSin;
+vectordepares = vectorParesSin;
+        
         for (int k = 0; k < vectorParesSin.length; k++) {
             String palabraAG = vectorParesSin[k];
             Matrix[k + 1][0] = palabraAG;
@@ -361,7 +368,7 @@ public class Gramatica {
             Matrix[0][l + 1] = palabraAG;
         }
 
-        for (int m = 0; m < impares.length-1; m++) {
+        for (int m = 0; m < impares.length - 1; m++) {
             String palabraACI = impares[m];
             if (palabraACI.substring(1, 2).equals("<")) {
 
@@ -380,16 +387,15 @@ public class Gramatica {
                 String actual = "";
                 if (x == vectorImparesSin.length - 1 && y == vectorParesSin.length - 1) {
 
-                    actual = Matrix[paresR-1][y];
+                    actual = Matrix[paresR - 1][y];
                     if (actual == null) {
-                        Matrix[paresR-1][y] = palabraACI.substring(1, palabraACI.length());
+                        Matrix[paresR - 1][y] = palabraACI.substring(1, palabraACI.length());
 
                     } else {
                         String palabraMatrix = Matrix[x][y];
-                        Matrix[paresR-1][y] = palabraMatrix.concat(",").concat(palabraACI.substring(1, palabraACI.length()));
+                        Matrix[paresR - 1][y] = palabraMatrix.concat(",").concat(palabraACI.substring(1, palabraACI.length()));
                     }
-                }
-                else {
+                } else {
                     actual = Matrix[x + 1][y + 1];
                     if (actual == null) {
                         Matrix[x + 1][y + 1] = palabraACI.substring(1, palabraACI.length());
@@ -404,31 +410,80 @@ public class Gramatica {
 
         }
 
+        for (int i = 0; i < vectorParesSin.length + 1; i++) {
+            for (int j = 0; j < vectorImparesSin.length + 1; j++) {
+                if (Matrix[i][j] == null) {
+                    Matrix[i][j] = "Error";
+                }
+            }
+        }
+        Matrix[0][0] = "Estados";
+        String paraC = this.agregarComa();
+        String[] cabecera = {"Estados", paraC, "Aceptacion"};
+        String[][] Matriz2 = new String[vectorParesSin.length][vectorImparesSin.length + 1];
+
+        DefaultTableModel tb = new DefaultTableModel();
+        tb.addColumn("Estados");
+        for (int i = 0; i < vectorImparesSin.length; i++) {
+            String nuevo = vectorImparesSin[i];
+            tb.addColumn(nuevo);
+        }
+
+        for (int i = 1; i < vectorParesSin.length + 1; i++) {
+            ArrayList<String> fila = new ArrayList<String>();
+            for (int j = 0; j < vectorImparesSin.length + 1; j++) {
+                fila.add(Matrix[i][j]);
+
+                String[] filita = fila.stream().toArray(String[]::new);
+                Agregar = filita;
+            }
+            tb.addRow(Agregar);
+
+        }
+        tb.addColumn("Aceptacion");
+        w.setModel(tb);
+
         return (Matrix);
     }
-      public String  agregarComa(){
-         
-      String[] vectorImparesSin2 = imparesSinR.stream().toArray(String[]::new);
-         for (int i = 0; i < vectorImparesSin2.length; i++) {
-             System.out.println("entre");
-             System.out.println(vectorImparesSin2[i]);
-         }
-          for (int i = 0; i < vectorImparesSin2.length-1; i++) {
-              vectorImparesSin2[i]=vectorImparesSin2[i].concat(",");
-          }
-          String a = "";
-          for (int i = 0; i < vectorImparesSin2.length; i++) {
-              a = a.concat(vectorImparesSin2[i]);
-          }
-          System.out.println("esooooo");
-          System.out.println(a);
-          return (a);
-         
-     }
-      
+
+    public boolean Deterministico(String[][] Matrix) {
+        boolean Esdeterministico = true;
+        for (int i = 1; i <vectordepares.length + 1; i++) {
+            for (int j = 0; j < vectordeimpares.length + 1; j++) {
+                String palabraactual = Matrix[i][j];
+                int x = palabraactual.indexOf(",");
+                if(x != -1){
+                    return(false);
+                }
+            }
+        }
+        return (Esdeterministico);
+    }
     
-    
-   
-    
+    public String[][] noDeterministico(String[][] Matrix, boolean deterministico){
+        if(deterministico == false){
+            
+        } 
+    }
+
+    public String agregarComa() {
+
+        String[] vectorImparesSin2 = imparesSinR.stream().toArray(String[]::new);
+        for (int i = 0; i < vectorImparesSin2.length; i++) {
+            System.out.println("entre");
+            System.out.println(vectorImparesSin2[i]);
+        }
+        for (int i = 0; i < vectorImparesSin2.length - 1; i++) {
+            vectorImparesSin2[i] = vectorImparesSin2[i].concat(",");
+        }
+        String a = "";
+        for (int i = 0; i < vectorImparesSin2.length; i++) {
+            a = a.concat(vectorImparesSin2[i]);
+        }
+        System.out.println("esooooo");
+        System.out.println(a);
+        return (a);
+
+    }
 
 }
