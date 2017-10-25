@@ -20,18 +20,16 @@ public class Principalgramaticas extends javax.swing.JFrame {
     /**
      * Creates new form Principalgramaticas
      */
-    
     JFileChooser seleccionado = new JFileChooser();
     File archivo;
     ArchivodeGramatica archivog = new ArchivodeGramatica();
-    
+
     public Principalgramaticas() {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
     }
-    
-        
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -207,7 +205,7 @@ public class Principalgramaticas extends javax.swing.JFrame {
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         Gramaticasimplificada.setEnabled(true);
         txtgramatica.setEnabled(true);
-        
+
     }//GEN-LAST:event_btnmodificarActionPerformed
 
     private void btnsimplificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimplificarActionPerformed
@@ -216,19 +214,21 @@ public class Principalgramaticas extends javax.swing.JFrame {
         txtVivos.setText(g.Vivos(gram));
         txtMuertos.setText(g.Muertos(txtVivos.getText(), gram));
         txtInalcanzables.setText(g.inalcanzables(gram));
-        Gramaticasimplificada.setText(g.impresion(g.posArray,g.posAlcanzablesArray,gram));
+        Gramaticasimplificada.setText(g.impresion(g.posArray, g.posAlcanzablesArray, gram));
+        String[] nuevagramatica = g.Gramatica(Gramaticasimplificada.getText());
         
+
 
     }//GEN-LAST:event_btnsimplificarActionPerformed
 
     private void btncargargramaticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncargargramaticaActionPerformed
-        if(seleccionado.showDialog(null, "ABRIR ARCHIVO") == JFileChooser.APPROVE_OPTION){
+        if (seleccionado.showDialog(null, "ABRIR ARCHIVO") == JFileChooser.APPROVE_OPTION) {
             archivo = seleccionado.getSelectedFile();
-            if(archivo.canRead()){
-                if(archivo.getName().endsWith("txt")){
+            if (archivo.canRead()) {
+                if (archivo.getName().endsWith("txt")) {
                     String contenido = archivog.AbrirArchivoTxtGramatica(archivo);
                     txtgramatica.setText(contenido);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Por favor seleccione un archivo de texto o de imagen.");
                 }
             }
@@ -236,17 +236,17 @@ public class Principalgramaticas extends javax.swing.JFrame {
     }//GEN-LAST:event_btncargargramaticaActionPerformed
 
     private void btnguardargramaticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardargramaticaActionPerformed
-         if(seleccionado.showDialog(null, "GUARDAR TEXTO") == JFileChooser.APPROVE_OPTION){
+        if (seleccionado.showDialog(null, "GUARDAR TEXTO") == JFileChooser.APPROVE_OPTION) {
             archivo = seleccionado.getSelectedFile();
-            if(archivo.getName().endsWith("txt")){
+            if (archivo.getName().endsWith("txt")) {
                 String contenido = Gramaticasimplificada.getText();
                 String respuesta = archivog.GuardarATexto(archivo, contenido);
-                if(respuesta!=null){
+                if (respuesta != null) {
                     JOptionPane.showMessageDialog(null, respuesta);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Error al guardar texto.");
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "El texto se debe guardar en un formato de texto.");
             }
         }
@@ -258,26 +258,36 @@ public class Principalgramaticas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    Automata a = new Automata();
-    Gramatica g = new Gramatica();
-    
+        Automata a = new Automata();
+        Gramatica g = new Gramatica();
+
         String[] gram = g.Gramatica(txtgramatica.getText());
         txtVivos.setText(g.Vivos(gram));
         txtMuertos.setText(g.Muertos(txtVivos.getText(), gram));
         txtInalcanzables.setText(g.inalcanzables(gram));
-    a.setVisible(true);
-    super.dispose();
-    a.gramaticaSimplificada2.setText(g.impresion(g.posArray,g.posAlcanzablesArray,gram));
-    g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram));
-    g.pares(g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram)));
-    g.impares(g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram)));
-    g.matriz(g.pares(g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram))),g.impares(g.generarAF(g.impresion(g.posArray,g.posAlcanzablesArray,gram))),a.matrix);
-    g.agregarComa();
-    Automata s = new Automata();
+
+        boolean Especial = g.FormaEspecial(gram);
+        boolean Lineal = g.LinealporDerecha(gram);
+
+        if (Especial == true && Lineal == true) {
+            a.gramaticaSimplificada2.setText(g.impresion(g.posArray, g.posAlcanzablesArray, gram));
+            g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram));
+            g.pares(g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram)));
+            g.impares(g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram)));
+            g.matriz(g.pares(g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram))), g.impares(g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram))), a.matrix);
+            g.agregarComa();
+            a.setVisible(true);
+            super.dispose();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "La gramatica no es regular por lo tanto no se puede realizar el automata");
+        }
+
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    /**u
+    /**
+     * u
+     *
      * @param args the command line arguments
      */
 //    public static void main(String args[]) {

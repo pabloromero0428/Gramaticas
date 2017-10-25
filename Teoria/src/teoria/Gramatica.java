@@ -23,7 +23,7 @@ public class Gramatica {
 
     public ArrayList<Integer> posArray = new ArrayList<Integer>();
     public ArrayList<Integer> posAlcanzablesArray = new ArrayList<Integer>();
-    String [] vectordepares;
+    String[] vectordepares;
     String[] vectordeimpares;
 
     public String NVivos;
@@ -32,6 +32,7 @@ public class Gramatica {
     public String Nuevaimpresion;
     ArrayList<String> paresSinR = new ArrayList<>();
     ArrayList<String> imparesSinR = new ArrayList<>();
+    ArrayList<String> nuevaConvertida = new ArrayList<>();
     int paresR = 0;
     int imparesR = 0;
     String[] Agregar;
@@ -254,6 +255,93 @@ public class Gramatica {
         return (Ngramatica);
     }
 
+    public boolean LinealporDerecha(String[] Gramatica) {
+        boolean T = true;
+        for (int i = 0; i < Gramatica.length; i++) {
+            int contador = 0;
+            int contadorLanda = 0;
+            if (i % 2 != 0) {
+                String posicionado = Gramatica[i];
+                String[] AR = posicionado.split("<");
+                for (int j = 0; j < AR.length; j++) {
+                    String ARactual = AR[j];
+                    if (ARactual.equals("?")) {
+                        contadorLanda = contadorLanda + 1;
+                    } else {
+                        int encontrado = ARactual.indexOf(">");
+                        if (encontrado != -1) {
+                            contador = contador + 1;
+
+                        }
+
+                        if (encontrado == -1 && contador > 1) {
+                            T = false;
+                        }
+
+                    }
+
+                }
+                if (T == false) {
+                    System.out.println("No es lineal por exceso de T");
+                    return (false);
+                }
+
+                if (contador == 0) {
+                    if (contadorLanda != 1) {
+                        System.out.println("No es lineal por landa");
+                        return (false);
+                    }
+                } else if (contador != 1) {
+                    System.out.println("No es lineal por N");
+                    return (false);
+                }
+            }
+        }
+        System.out.println("LinealPorDerecha");
+        return (true);
+    }
+
+    public boolean FormaEspecial(String[] Gramatica) {
+        for (int i = 0; i < Gramatica.length; i++) {
+
+            int contador = 0;
+            int contadorLanda = 0;
+            if (i % 2 != 0) {
+                String posicionado = Gramatica[i];
+                String[] AR = posicionado.split("<");
+                for (int j = 0; j < AR.length; j++) {
+                    String ARactual = AR[j];
+                    if (ARactual.equals("?")) {
+                        contadorLanda = contadorLanda + 1;
+                    } else {
+                        int encontrado = ARactual.indexOf(">");
+                        if (encontrado != -1) {
+                            contador = contador + 1;
+                        }
+                        if (encontrado == -1) {
+                            if (j != 0) {
+                                System.out.println("No es especial por J");
+                                return (false);
+                            }
+                        }
+                    }
+
+                }
+                if (contador == 0) {
+                    if (contadorLanda != 1) {
+                        System.out.println("No es lineal por landa");
+                        return (false);
+                    }
+                } else if (contador != 1) {
+                    System.out.println("No es Especial por N");
+                    return (false);
+                }
+            }
+        }
+        System.out.println("Especial");
+        return (true);
+    }
+
     public String[] generarAF(String NString) {
         String variable1 = "";
         String[] tokens = NString.split("\n");
@@ -344,9 +432,11 @@ public class Gramatica {
             String[] actual = impares[j].split("<");
             String palabraActual = actual[0];
             palabraActual = palabraActual.trim();
-            if (!primeraFila.contains(palabraActual)) {
-                primeraFila = primeraFila.concat(palabraActual);
-                imparesSinR.add(palabraActual);
+            if (!palabraActual.equals("?")) {
+                if (!primeraFila.contains(palabraActual)) {
+                    primeraFila = primeraFila.concat(palabraActual);
+                    imparesSinR.add(palabraActual);
+                }
             }
         }
         String[] vectorParesSin = paresSinR.stream().toArray(String[]::new);
@@ -355,9 +445,9 @@ public class Gramatica {
         String[][] Matrix = new String[vectorParesSin.length + 1][vectorImparesSin.length + 1];
         paresR = vectorParesSin.length + 1;
         imparesR = vectorImparesSin.length + 1;
-vectordeimpares = vectorImparesSin;
-vectordepares = vectorParesSin;
-        
+        vectordeimpares = vectorImparesSin;
+        vectordepares = vectorParesSin;
+
         for (int k = 0; k < vectorParesSin.length; k++) {
             String palabraAG = vectorParesSin[k];
             Matrix[k + 1][0] = palabraAG;
@@ -370,46 +460,47 @@ vectordepares = vectorParesSin;
 
         for (int m = 0; m < impares.length - 1; m++) {
             String palabraACI = impares[m];
-            if (palabraACI.substring(1, 2).equals("<")) {
+            if (!palabraACI.equals("?")) {
+                if (palabraACI.substring(1, 2).equals("<")) {
 
-                String a = palabraACI.substring(0, 1);
-                int x = primeraFila.indexOf(palabraACI.substring(0, 1));
-                String palabraACP = pares[m];
-                int y = 0;
-                for (int n = 0; n < vectorParesSin.length; n++) {
-                    String palabra = vectorParesSin[n];
-                    if (palabra.equals(palabraACP)) {
-                        y = n;
+                    String a = palabraACI.substring(0, 1);
+                    int x = primeraFila.indexOf(palabraACI.substring(0, 1));
+                    String palabraACP = pares[m];
+                    int y = 0;
+                    for (int n = 0; n < vectorParesSin.length; n++) {
+                        String palabra = vectorParesSin[n];
+                        if (palabra.equals(palabraACP)) {
+                            y = n;
+                        }
+
                     }
 
-                }
+                    String actual = "";
+                    if (x == vectorImparesSin.length - 1 && y == vectorParesSin.length - 1) {
 
-                String actual = "";
-                if (x == vectorImparesSin.length - 1 && y == vectorParesSin.length - 1) {
+                        actual = Matrix[paresR - 1][x];
+                        if (actual == null) {
+                            Matrix[paresR - 1][x] = palabraACI.substring(1, palabraACI.length());
 
-                    actual = Matrix[paresR - 1][y];
-                    if (actual == null) {
-                        Matrix[paresR - 1][y] = palabraACI.substring(1, palabraACI.length());
-
+                        } else {
+                            String palabraMatrix = Matrix[x][y];
+                            Matrix[paresR - 1][x] = palabraMatrix.concat(",").concat(palabraACI.substring(1, palabraACI.length()));
+                        }
                     } else {
-                        String palabraMatrix = Matrix[x][y];
-                        Matrix[paresR - 1][y] = palabraMatrix.concat(",").concat(palabraACI.substring(1, palabraACI.length()));
-                    }
-                } else {
-                    actual = Matrix[x + 1][y + 1];
-                    if (actual == null) {
-                        Matrix[x + 1][y + 1] = palabraACI.substring(1, palabraACI.length());
+                        actual = Matrix[y + 1][x+ 1];
+                        if (actual == null) {
+                            Matrix[y + 1][x+ 1] = palabraACI.substring(1, palabraACI.length());
 
-                    } else {
-                        String palabraMatrix = Matrix[x][y];
-                        Matrix[x + 1][y + 1] = palabraMatrix.concat(",").concat(palabraACI.substring(1, palabraACI.length()));
+                        } else {
+                            String palabraMatrix = Matrix[y][x];
+                            Matrix[y + 1][x + 1] = palabraMatrix.concat(",").concat(palabraACI.substring(1, palabraACI.length()));
+                        }
                     }
+
                 }
 
             }
-
         }
-
         for (int i = 0; i < vectorParesSin.length + 1; i++) {
             for (int j = 0; j < vectorImparesSin.length + 1; j++) {
                 if (Matrix[i][j] == null) {
@@ -418,9 +509,6 @@ vectordepares = vectorParesSin;
             }
         }
         Matrix[0][0] = "Estados";
-        String paraC = this.agregarComa();
-        String[] cabecera = {"Estados", paraC, "Aceptacion"};
-        String[][] Matriz2 = new String[vectorParesSin.length][vectorImparesSin.length + 1];
 
         DefaultTableModel tb = new DefaultTableModel();
         tb.addColumn("Estados");
@@ -448,24 +536,23 @@ vectordepares = vectorParesSin;
 
     public boolean Deterministico(String[][] Matrix) {
         boolean Esdeterministico = true;
-        for (int i = 1; i <vectordepares.length + 1; i++) {
+        for (int i = 1; i < vectordepares.length + 1; i++) {
             for (int j = 0; j < vectordeimpares.length + 1; j++) {
                 String palabraactual = Matrix[i][j];
                 int x = palabraactual.indexOf(",");
-                if(x != -1){
-                    return(false);
+                if (x != -1) {
+                    return (false);
                 }
             }
         }
         return (Esdeterministico);
     }
-    
-    public String[][] noDeterministico(String[][] Matrix, boolean deterministico){
-        if(deterministico == false){
-            
-        } 
-    }
 
+//    public String[][] noDeterministico(String[][] Matrix, boolean deterministico){
+//        if(deterministico == false){
+//            
+//        } 
+//    }
     public String agregarComa() {
 
         String[] vectorImparesSin2 = imparesSinR.stream().toArray(String[]::new);
