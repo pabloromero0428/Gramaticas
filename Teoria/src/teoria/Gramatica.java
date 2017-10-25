@@ -151,6 +151,9 @@ public class Gramatica {
     public String Muertos(String NVivos, String[] gramatica) {
         ArrayList<String> Nmuertos = new ArrayList<>();
         String Ntmuertos = "";
+        if (NVivos.equals("")) {
+            return (null);
+        }
         for (int i = 0; i < gramatica.length; i++) {
             if (i % 2 == 0) {
                 String palabra = gramatica[i];
@@ -244,13 +247,15 @@ public class Gramatica {
             }
 
             System.out.println(Ngramatica);
-        } else {
+        } else if (posVivos.isEmpty() == true) {
             for (int i = 0; i < posicionAcanzables.length; i++) {
                 Integer dos = posicionAcanzables[i];
                 int y = dos.intValue();
                 String palabraprocesada = "";
                 palabraprocesada = palabraprocesada.concat(gramatica[y]).concat("=").concat(gramatica[y + 1]).concat("\n");
             }
+        } else {
+
         }
         return (Ngramatica);
     }
@@ -416,11 +421,12 @@ public class Gramatica {
         return (impares);
     }
 
-    public String[][] matriz(String[] pares, String[] impares, JTable w) {
+    public String[][] matriz(String[] gramatica, JTable w) {
 
         String primeraFila = "";
         String primeraColumna = "";
-
+        String pares[] = pares(gramatica);
+        String impares[] = impares(gramatica);
         for (int i = 0; i < pares.length; i++) {
             String palabraA = pares[i];
             if (!primeraColumna.contains(palabraA)) {
@@ -458,7 +464,7 @@ public class Gramatica {
             Matrix[0][l + 1] = palabraAG;
         }
 
-        for (int m = 0; m < impares.length - 1; m++) {
+        for (int m = 0; m < impares.length; m++) {
             String palabraACI = impares[m];
             if (!palabraACI.equals("?")) {
                 if (palabraACI.substring(1, 2).equals("<")) {
@@ -478,18 +484,18 @@ public class Gramatica {
                     String actual = "";
                     if (x == vectorImparesSin.length - 1 && y == vectorParesSin.length - 1) {
 
-                        actual = Matrix[paresR - 1][x];
+                        actual = Matrix[y+1][x+1];
                         if (actual == null) {
-                            Matrix[paresR - 1][x] = palabraACI.substring(1, palabraACI.length());
+                            Matrix[y+1][x+1] = palabraACI.substring(1, palabraACI.length());
 
                         } else {
-                            String palabraMatrix = Matrix[x][y];
-                            Matrix[paresR - 1][x] = palabraMatrix.concat(",").concat(palabraACI.substring(1, palabraACI.length()));
+                            String palabraMatrix = Matrix[y+1][x+1];
+                            Matrix[y+1][x+1] = palabraMatrix.concat(",").concat(palabraACI.substring(1, palabraACI.length()));
                         }
                     } else {
-                        actual = Matrix[y + 1][x+ 1];
+                        actual = Matrix[y + 1][x + 1];
                         if (actual == null) {
-                            Matrix[y + 1][x+ 1] = palabraACI.substring(1, palabraACI.length());
+                            Matrix[y + 1][x + 1] = palabraACI.substring(1, palabraACI.length());
 
                         } else {
                             String palabraMatrix = Matrix[y][x];

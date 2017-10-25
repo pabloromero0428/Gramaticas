@@ -216,7 +216,9 @@ public class Principalgramaticas extends javax.swing.JFrame {
         txtInalcanzables.setText(g.inalcanzables(gram));
         Gramaticasimplificada.setText(g.impresion(g.posArray, g.posAlcanzablesArray, gram));
         String[] nuevagramatica = g.Gramatica(Gramaticasimplificada.getText());
-        
+        if (Gramaticasimplificada.getText().equals("")) {
+            Gramaticasimplificada.setText(txtgramatica.getText());
+        }
 
 
     }//GEN-LAST:event_btnsimplificarActionPerformed
@@ -261,20 +263,18 @@ public class Principalgramaticas extends javax.swing.JFrame {
         Automata a = new Automata();
         Gramatica g = new Gramatica();
 
-        String[] gram = g.Gramatica(txtgramatica.getText());
-        txtVivos.setText(g.Vivos(gram));
-        txtMuertos.setText(g.Muertos(txtVivos.getText(), gram));
-        txtInalcanzables.setText(g.inalcanzables(gram));
+        String[] gram = g.Gramatica(Gramaticasimplificada.getText());
 
         boolean Especial = g.FormaEspecial(gram);
         boolean Lineal = g.LinealporDerecha(gram);
 
         if (Especial == true && Lineal == true) {
-            a.gramaticaSimplificada2.setText(g.impresion(g.posArray, g.posAlcanzablesArray, gram));
+            a.gramaticaSimplificada2.setText(Gramaticasimplificada.getText());
             g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram));
             g.pares(g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram)));
             g.impares(g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram)));
-            g.matriz(g.pares(g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram))), g.impares(g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram))), a.matrix);
+
+            g.matriz(gram, a.matrix);
             g.agregarComa();
             a.setVisible(true);
             super.dispose();
