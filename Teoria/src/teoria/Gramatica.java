@@ -448,7 +448,7 @@ public class Gramatica {
         String[] vectorParesSin = paresSinR.stream().toArray(String[]::new);
         String[] vectorImparesSin = imparesSinR.stream().toArray(String[]::new);
 
-        String[][] Matrix = new String[vectorParesSin.length + 1][vectorImparesSin.length + 1];
+        String[][] Matrix = new String[vectorParesSin.length + 1][vectorImparesSin.length + 2];
         paresR = vectorParesSin.length + 1;
         imparesR = vectorImparesSin.length + 1;
         vectordeimpares = vectorImparesSin;
@@ -484,13 +484,13 @@ public class Gramatica {
                     String actual = "";
                     if (x == vectorImparesSin.length - 1 && y == vectorParesSin.length - 1) {
 
-                        actual = Matrix[y+1][x+1];
+                        actual = Matrix[y + 1][x + 1];
                         if (actual == null) {
-                            Matrix[y+1][x+1] = palabraACI.substring(1, palabraACI.length());
+                            Matrix[y + 1][x + 1] = palabraACI.substring(1, palabraACI.length());
 
                         } else {
-                            String palabraMatrix = Matrix[y+1][x+1];
-                            Matrix[y+1][x+1] = palabraMatrix.concat(",").concat(palabraACI.substring(1, palabraACI.length()));
+                            String palabraMatrix = Matrix[y + 1][x + 1];
+                            Matrix[y + 1][x + 1] = palabraMatrix.concat(",").concat(palabraACI.substring(1, palabraACI.length()));
                         }
                     } else {
                         actual = Matrix[y + 1][x + 1];
@@ -514,18 +514,40 @@ public class Gramatica {
                 }
             }
         }
+        
+        for (int i = 1; i < vectorImparesSin.length; i++) {
+            Matrix[i][vectorImparesSin.length + 1] = "0";          
+        }
+
+        for (int i = 0; i < gramatica.length; i++) {
+            if (i % 2 != 0) {
+                String posicionld = gramatica[i];
+                if (posicionld.equals("?")) {
+                    for (int j = 0; j < vectorParesSin.length; j++) {
+                        String N = gramatica[i - 1];
+                        String ac = vectorParesSin[j];
+                        if (ac.equals(N)) {
+                            Matrix[j + 1][vectorImparesSin.length + 1] = "1";
+                        }
+                    }
+                    System.out.println("");
+                }
+            }
+        }
+
         Matrix[0][0] = "Estados";
 
         DefaultTableModel tb = new DefaultTableModel();
         tb.addColumn("Estados");
+
         for (int i = 0; i < vectorImparesSin.length; i++) {
             String nuevo = vectorImparesSin[i];
             tb.addColumn(nuevo);
         }
-
+        tb.addColumn("Aceptacion");
         for (int i = 1; i < vectorParesSin.length + 1; i++) {
             ArrayList<String> fila = new ArrayList<String>();
-            for (int j = 0; j < vectorImparesSin.length + 1; j++) {
+            for (int j = 0; j < vectorImparesSin.length + 2; j++) {
                 fila.add(Matrix[i][j]);
 
                 String[] filita = fila.stream().toArray(String[]::new);
@@ -534,7 +556,7 @@ public class Gramatica {
             tb.addRow(Agregar);
 
         }
-        tb.addColumn("Aceptacion");
+
         w.setModel(tb);
 
         return (Matrix);
