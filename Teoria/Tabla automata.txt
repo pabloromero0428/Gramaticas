@@ -1,0 +1,2 @@
+<S> <A> <A> <A> 0 
+<A> <S>,<A> Error Error 1 
