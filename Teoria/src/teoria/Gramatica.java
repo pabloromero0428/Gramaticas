@@ -33,6 +33,8 @@ public class Gramatica {
     ArrayList<String> paresSinR = new ArrayList<>();
     ArrayList<String> imparesSinR = new ArrayList<>();
     ArrayList<String> nuevaConvertida = new ArrayList<>();
+    String[] vectorParesSin;
+    String[] vectorImparesSin;
     int paresR = 0;
     int imparesR = 0;
     String[] Agregar;
@@ -445,8 +447,8 @@ public class Gramatica {
                 }
             }
         }
-        String[] vectorParesSin = paresSinR.stream().toArray(String[]::new);
-        String[] vectorImparesSin = imparesSinR.stream().toArray(String[]::new);
+        vectorParesSin = paresSinR.stream().toArray(String[]::new);
+        vectorImparesSin = imparesSinR.stream().toArray(String[]::new);
 
         String[][] Matrix = new String[vectorParesSin.length + 1][vectorImparesSin.length + 2];
         paresR = vectorParesSin.length + 1;
@@ -514,9 +516,9 @@ public class Gramatica {
                 }
             }
         }
-        
+
         for (int i = 1; i < vectorImparesSin.length; i++) {
-            Matrix[i][vectorImparesSin.length + 1] = "0";          
+            Matrix[i][vectorImparesSin.length + 1] = "0";
         }
 
         for (int i = 0; i < gramatica.length; i++) {
@@ -564,8 +566,8 @@ public class Gramatica {
 
     public boolean Deterministico(String[][] Matrix) {
         boolean Esdeterministico = true;
-        for (int i = 1; i < vectordepares.length + 1; i++) {
-            for (int j = 0; j < vectordeimpares.length + 1; j++) {
+        for (int i = 1; i < vectorParesSin.length + 1; i++) {
+            for (int j = 0; j < vectorImparesSin.length + 1; j++) {
                 String palabraactual = Matrix[i][j];
                 int x = palabraactual.indexOf(",");
                 if (x != -1) {
@@ -573,14 +575,54 @@ public class Gramatica {
                 }
             }
         }
+        System.out.println("esDeterministico");
         return (Esdeterministico);
     }
 
-//    public String[][] noDeterministico(String[][] Matrix, boolean deterministico){
-//        if(deterministico == false){
-//            
-//        } 
-//    }
+    public void noDeterministico(String[][] Matrix) {
+
+        String[] nuevos;
+        String f;
+        ArrayList<String> m = new ArrayList<>();
+        String variable = "";
+        String Variable2 = "";
+
+        boolean siguiente = true;
+        for (int i = 0; i < vectorImparesSin.length + 1; i++) {
+            String d = Matrix[1][i];
+            variable = variable.concat(d);
+            m.add(d);
+        }
+        int contador = 1;
+        while (siguiente == true) {
+            Variable2 = m.get(contador);
+            nuevos = Variable2.split(",");
+              f = "";
+            for (int i = 0; i < nuevos.length; i++) {
+                String s = nuevos[i];
+                int x = paresSinR.indexOf(s);
+                String contiene = Matrix[x+1][i+1];
+                boolean contenido = m.contains(contiene);
+                if (contenido == false) {
+                    f = f.concat(contiene);
+                }
+            if (f.equals("")) {
+                siguiente = false;
+                break;
+            }
+          
+           
+                contador = contador + 1;
+                m.add(f);
+                variable = variable.concat(f);
+            
+        }
+           
+
+    }
+         String[][] mat = new String[vectorParesSin.length][vectorImparesSin.length];
+    }
+
     public String agregarComa() {
 
         String[] vectorImparesSin2 = imparesSinR.stream().toArray(String[]::new);

@@ -262,23 +262,26 @@ public class Principalgramaticas extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Automata a = new Automata();
         Gramatica g = new Gramatica();
-
         String[] gram = g.Gramatica(Gramaticasimplificada.getText());
-
+        String[][]mat;
+        
         boolean Especial = g.FormaEspecial(gram);
         boolean Lineal = g.LinealporDerecha(gram);
-
+          
         if (Especial == true && Lineal == true) {
             a.gramaticaSimplificada2.setText(Gramaticasimplificada.getText());
             g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram));
             g.pares(g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram)));
             g.impares(g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram)));
-
-            g.matriz(gram, a.matrix);
+            mat=g.matriz(gram, a.matrix);
             g.agregarComa();
+           
+          
             a.setVisible(true);
             super.dispose();
-        } else {
+        } else if( Especial == false && Lineal == true){
+            
+        }else{
             JOptionPane.showMessageDialog(rootPane, "La gramatica no es regular por lo tanto no se puede realizar el automata");
         }
 
