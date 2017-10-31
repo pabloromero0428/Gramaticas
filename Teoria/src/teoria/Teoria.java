@@ -6,6 +6,7 @@
 package teoria;
 
 
+import Vistas.Inicio;
 import Vistas.Principalgramaticas;
 import java.awt.FlowLayout;
 import java.io.IOException;
@@ -16,7 +17,7 @@ public class Teoria {
     
     public static void main(String[] args) throws IOException {
 
-        Principalgramaticas pg = new  Principalgramaticas();
+        Inicio pg = new  Inicio();
         pg.setVisible(true);
 
     }

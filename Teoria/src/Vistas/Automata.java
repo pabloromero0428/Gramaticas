@@ -36,6 +36,7 @@ public class Automata extends javax.swing.JFrame {
       ControladorAutomata AD;
     public Automata() {
         initComponents();
+        setLocationRelativeTo(null);
         dft = new DefaultTableModel(5, 4);
         for (int i = 0; i < dft.getRowCount(); i++) {
             for (int j = 0; j < dft.getColumnCount(); j++) {
@@ -77,12 +78,19 @@ public class Automata extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         hilera = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(800, 640));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         gramaticaSimplificada2.setColumns(20);
         gramaticaSimplificada2.setRows(5);
         jScrollPane1.setViewportView(gramaticaSimplificada2);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 36, 280, 147));
 
         matrix.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -97,9 +105,19 @@ public class Automata extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(matrix);
 
-        jLabel1.setText("GRAMATICA");
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 36, -1, 147));
 
+        jLabel1.setBackground(new java.awt.Color(249, 249, 249));
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(251, 241, 241));
+        jLabel1.setText("GRAMATICA");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 7, -1, -1));
+
+        jLabel2.setBackground(new java.awt.Color(249, 249, 249));
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(251, 241, 241));
         jLabel2.setText("AUTOMATA DE GRAMATICA");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 7, -1, -1));
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -114,12 +132,15 @@ public class Automata extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(tabla);
 
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 356, 103));
+
         estados.setText("Agregar estados");
         estados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 estadosActionPerformed(evt);
             }
         });
+        getContentPane().add(estados, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 232, -1, -1));
 
         jButton2.setText("Agregar simbolo");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -127,6 +148,7 @@ public class Automata extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(177, 232, -1, -1));
 
         mostrarResultados.setColumns(20);
         mostrarResultados.setRows(5);
@@ -136,7 +158,7 @@ public class Automata extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -147,8 +169,14 @@ public class Automata extends javax.swing.JFrame {
                 .addGap(0, 13, Short.MAX_VALUE))
         );
 
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 506, -1, -1));
+
+        jLabel3.setBackground(new java.awt.Color(249, 249, 249));
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(251, 241, 241));
         jLabel3.setText("                                                                         PARTE INTERACTIVA");
         jLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 195, 661, -1));
 
         jButton1.setText("Comprobar Determinicidad");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -156,6 +184,7 @@ public class Automata extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 260, 274, -1));
 
         jButton3.setText("Estados Extraños");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -163,6 +192,7 @@ public class Automata extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 304, -1, -1));
 
         jButton4.setText("Convertir");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -170,6 +200,7 @@ public class Automata extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(585, 304, -1, -1));
 
         jButton5.setText("Eliminar estado");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -177,6 +208,7 @@ public class Automata extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 279, 170, -1));
 
         jButton6.setText("Eliminar simbolo");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -184,6 +216,7 @@ public class Automata extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 170, -1));
 
         simplificar.setText("Simplificar");
         simplificar.addActionListener(new java.awt.event.ActionListener() {
@@ -191,8 +224,14 @@ public class Automata extends javax.swing.JFrame {
                 simplificarActionPerformed(evt);
             }
         });
+        getContentPane().add(simplificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(397, 371, -1, -1));
 
+        jLabel4.setBackground(new java.awt.Color(249, 249, 249));
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(251, 241, 241));
         jLabel4.setText("Ingrese la hilera a evaluar");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(374, 423, -1, -1));
+        getContentPane().add(hilera, new org.netbeans.lib.awtextra.AbsoluteConstraints(566, 418, 144, -1));
 
         jButton7.setText("Evaluar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -200,119 +239,32 @@ public class Automata extends javax.swing.JFrame {
                 jButton7ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(374, 457, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(estados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(86, 86, 86)
-                                .addComponent(jButton3)
-                                .addGap(65, 65, 65)
-                                .addComponent(jButton4)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(41, 41, 41)
-                                        .addComponent(simplificar))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jButton7)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(hilera, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel1))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(estados)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton5)
-                            .addComponent(jButton6)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(simplificar)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(hilera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton7)))
-                .addGap(33, 33, 33))
-        );
+        jButton8.setText("Guardar gramatica en txt");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, -1, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondo 3.jpg"))); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 670));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Boton que agrega estados
+ * @param evt 
+ */
     private void estadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadosActionPerformed
     dft.addRow(new Object[]{});
     }//GEN-LAST:event_estadosActionPerformed
-
+/**
+ * Boton que agrega simbolos
+ * @param evt 
+ */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
     comprobarEdicionCelda();
     int ultimaColumna = dft.getColumnCount();        
@@ -324,7 +276,10 @@ public class Automata extends javax.swing.JFrame {
             dft.setValueAt(o, i, ultimaColumna);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
+/**
+ * Boton que elimina estado
+ * @param evt 
+ */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         try{        
             dft.removeRow(tabla.getSelectedRow());
@@ -333,7 +288,10 @@ public class Automata extends javax.swing.JFrame {
             mostrarEnArea("Seleccione la celda correspondiente a la fila a eliminar.");
         }
     }//GEN-LAST:event_jButton5ActionPerformed
-
+/**
+ * Boton que elimina simbolo
+ * @param evt 
+ */
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try{         
             
@@ -351,13 +309,19 @@ public class Automata extends javax.swing.JFrame {
             mostrarEnArea("Seleccione la celda correspondiente a la columna a eliminar.");
         }
     }//GEN-LAST:event_jButton6ActionPerformed
-
+/**
+ * Boton que comprueba si es deterministico
+ * @param evt 
+ */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       comprobarEdicionCelda();
       AD.setTabla(tabla);
         mostrarEnArea(AD.comprobarDeterministico());
     }//GEN-LAST:event_jButton1ActionPerformed
-
+/**
+ * Boton que me muestra los etsados extraños
+ * @param evt 
+ */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
       comprobarEdicionCelda();        
         AD.setTabla(tabla);
@@ -365,7 +329,10 @@ public class Automata extends javax.swing.JFrame {
         dft = AD.modelo();
         tabla.setModel(dft);
     }//GEN-LAST:event_jButton3ActionPerformed
-
+/**
+ * Boton que convierte el estado de no deterministico a deterministico
+ * @param evt 
+ */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
        int ent;
         comprobarEdicionCelda();
@@ -382,7 +349,10 @@ public class Automata extends javax.swing.JFrame {
         dft = AD.modelo();
         tabla.setModel(dft); 
     }//GEN-LAST:event_jButton4ActionPerformed
-
+/**
+ * Boton que simplifica el automata
+ * @param evt 
+ */
     private void simplificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simplificarActionPerformed
     simplificar.setEnabled(false);
         comprobarEdicionCelda();        
@@ -400,7 +370,10 @@ public class Automata extends javax.swing.JFrame {
             mostrarEnArea("Faltan datos en la tabla.");
         }
     }//GEN-LAST:event_simplificarActionPerformed
-
+/**
+ * Boton que evalua la hilera
+ * @param evt 
+ */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         comprobarEdicionCelda();
         AD.setTabla(tabla);
@@ -418,6 +391,29 @@ public class Automata extends javax.swing.JFrame {
             mostrarEnArea(a);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
+/**
+ * Boton que guarda el automata
+ * @param evt 
+ */
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        try {
+            FileWriter fw = new FileWriter("Tabla automata.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            
+            for(int i = 0; i < tabla.getRowCount(); i++){//rows
+                for(int j = 0; j < tabla.getColumnCount(); j++){//columns
+                    bw.write(tabla.getValueAt(i, j).toString()+" ");
+                }
+                bw.newLine();
+            }
+            
+            bw.close();
+            fw.close();
+            JOptionPane.showMessageDialog(null, "Guardado");
+        } catch (IOException ex) {        
+              ex.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
       
     private void comprobarEdicionCelda(){
         if(tabla.isEditing()){
@@ -443,10 +439,12 @@ public class Automata extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

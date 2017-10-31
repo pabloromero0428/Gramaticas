@@ -67,7 +67,8 @@ public class Gramatica {
     }
 
     /**
-     *
+     *Este metodo utiliza la gramatica ingresada, la descompone tokenizadamente y realiza interacciones 
+     *recorriendo toda la gramatica creada y guardada en vectores para asi encontrar cuales son los N vivos
      * @param gramatica
      * @return
      */
@@ -77,37 +78,37 @@ public class Gramatica {
         ArrayList<String> NVivos = new ArrayList<>();
         ArrayList<Integer> actual = new ArrayList<Integer>();
         String Nvivos = "";
-        boolean hayVivos = false;
+        boolean hayVivos = false;//iniciamos con 0 ingresos de vivos 
 
         for (int i = 0; i < gramatica.length; i++) {
             if (i % 2 != 0) {
                 String posicion = gramatica[i];
                 posicion = posicion.trim();
                 int encontrado = posicion.indexOf("<");
-                if (encontrado == -1) {
+                if (encontrado == -1) {//si no encuentra el N quiere decir que encontro un T y hay vivos 
                     TV.add(posicion);
                     String Nviv = gramatica[i - 1];
                     actual.add(i);
                     NVivos.add(Nviv);
                     posArray.add(i - 1);
                     Nvivos = Nvivos.concat(Nviv);
-                    hayVivos = true;
+                    hayVivos = true;// cambia la variable a verdadero indicando que se entro un vivo
                 }
             }
         }
 
-        if (hayVivos == false) {
+        if (hayVivos == false) {// si en la primera pasa no encuentra vivos la variable no cambia y no hay vivos ni muertos 
             JOptionPane.showMessageDialog(null, "NO HAY VIVOS NI MUERTOS");
         }
 
-        while (hayVivos == true) {
+        while (hayVivos == true) {//si encontro un T hay vivos e ingresa
             int conteo = 0;
-            hayVivos = false;
+            hayVivos = false;// iniciamos de nuevo la variable en falso para saber si agregaremos un nuevo vivo
             for (int i = 0; i < gramatica.length; i++) {
                 if (i % 2 != 0 && !actual.contains(i)) {
-                    boolean continuar = true;
+                    boolean continuar = true; // utilizamos esta variable para saber si debemos continuar avanzando por la gramatica
                     String posicion = gramatica[i];
-                    String[] porpos = posicion.split(">");
+                    String[] porpos = posicion.split(">");// realizamos particiones para buscar N y T vivos 
                     if (continuar == true) {
                         for (int j = 0; j < porpos.length - 1; j++) {
                             if (continuar != false) {
@@ -125,14 +126,14 @@ public class Gramatica {
                             }
                         }
                     }
-                    if (continuar == true) {
+                    if (continuar == true) {// su continuar es true quiere decir que debemos agregar un nuevo vivo
                         String Nviv = gramatica[i - 1];
                         boolean esta = false;
                         actual.add(i);
                         TV.add(posicion);
                         NVivos.add(Nviv);
                         posArray.add(i - 1);
-                        if (!Nvivos.contains(Nviv)) {
+                        if (!Nvivos.contains(Nviv)) {// si Ya ese N vivo esta agregado no hay mas que agregar 
                             Nvivos = Nvivos.concat(Nviv);
                             hayVivos = true;
                         }
@@ -145,7 +146,7 @@ public class Gramatica {
     }
 
     /**
-     *
+     *Este metodo toma lo N vivos para buscar recorriendo la gramatica cuales N terminales esta muertos 
      * @param NVivos
      * @param gramatica
      * @return
@@ -153,14 +154,14 @@ public class Gramatica {
     public String Muertos(String NVivos, String[] gramatica) {
         ArrayList<String> Nmuertos = new ArrayList<>();
         String Ntmuertos = "";
-        if (NVivos.equals("")) {
+        if (NVivos.equals("")) {//si N vivos esta en blanco quiere decir que no hay muertos 
             return (null);
         }
-        for (int i = 0; i < gramatica.length; i++) {
+        for (int i = 0; i < gramatica.length; i++) {// buscamos en las posisciones pares de toda la gramatica 
             if (i % 2 == 0) {
                 String palabra = gramatica[i];
                 int encontrado = NVivos.indexOf(palabra);
-                if (encontrado == -1) {
+                if (encontrado == -1) {// si la poicion en la que estoy no esta contenida en los vivos enotnces es un muertoy lo agregamos al nuevo vector
                     if (!Ntmuertos.contains(palabra)) {
                         Nmuertos.add(palabra);
                         Ntmuertos = Ntmuertos.concat(palabra);
@@ -174,7 +175,7 @@ public class Gramatica {
     }
 
     /**
-     *
+     *Este metodo buscar ir poscion por posicion de la grmatica desde las partes impares del vector 
      * @param gramatica
      * @return
      */
@@ -184,7 +185,7 @@ public class Gramatica {
         String Ninalcanzables = "";
         String Nalcanzables = "";
 
-        for (int i = 0; i < gramatica.length; i++) {
+        for (int i = 0; i < gramatica.length; i++) {// En este for encontrarems todos lo N de la gramatica en el lado derecho 
             if (i % 2 != 0) {
                 String posicion = gramatica[i];
                 String[] porpos = posicion.split(">");
@@ -194,7 +195,7 @@ public class Gramatica {
                     int signo = ps.indexOf("<");
                     ps = ps.substring(signo, ps.length());
                     int encontrado = Nalcanzables.indexOf(ps);
-                    if (encontrado == -1) {
+                    if (encontrado == -1) {// si el N no esta en nuestros alcanzables  lo agregamos 
                         Nalcanzables = Nalcanzables.concat(ps).concat(">");
 
                     }
@@ -202,13 +203,13 @@ public class Gramatica {
             }
         }
 
-        for (int i = 0; i < gramatica.length; i++) {
+        for (int i = 0; i < gramatica.length; i++) {// Buscamos en el lado izquierdo de la gramatica cuales son los que no entan en nuestros alcanzables y los agregamos a nuestros inalcanzables
             if (i % 2 == 0) {
                 String palabrai = gramatica[i];
                 if (Nalcanzables.contains(palabrai)) {
                     Alcanzables.add(palabrai);
                     posAlcanzablesArray.add(i);
-                } else if (!Ninalcanzables.contains(palabrai)) {
+                } else if (!Ninalcanzables.contains(palabrai)) {// si nuestro vector de inalcanzables no tiene la posicion actual inalcanzable la agregamos a nuestos vectos
                     Ninalcanzables = Ninalcanzables.concat(palabrai);
                     Inalcanzables.add(palabrai);
                 }
@@ -220,7 +221,8 @@ public class Gramatica {
     }
 
     /**
-     *
+     *Este metodo imprime la nueva gramatica eliminando los muestro y los inalcanzables
+     * teniendo en cuenta las posiciones
      * @param posVivos
      * @param posAlcanzables
      * @param gramatica
@@ -233,11 +235,11 @@ public class Gramatica {
         Integer[] posicionVivos = (Integer[]) posVivos.stream().toArray(Integer[]::new);
         Integer[] posicionAcanzables = (Integer[]) posVivos.stream().toArray(Integer[]::new);
 
-        if (posVivos.isEmpty() == false) {
+        if (posVivos.isEmpty() == false) {//si la poscion de los vivos esta vacio quiere decir que no hay vivos
             for (int i = 0; i < posicionVivos.length; i++) {
                 Integer uno = posicionVivos[i];
                 int x = uno.intValue();
-                for (int j = 0; j < posicionAcanzables.length; j++) {
+                for (int j = 0; j < posicionAcanzables.length; j++) {// vamos poscion por posicion comparad con  las posicones de los alcanzabeles y lso vivos y agregramos al estrig 
                     Integer dos = posicionAcanzables[j];
                     int y = dos.intValue();
                     String palabraprocesada = "";
@@ -249,25 +251,27 @@ public class Gramatica {
             }
 
             System.out.println(Ngramatica);
-        } else if (posVivos.isEmpty() == true) {
+        } else if (posVivos.isEmpty() == true) {// si vivos esta vacio solo agregos los alcanzables 
             for (int i = 0; i < posicionAcanzables.length; i++) {
                 Integer dos = posicionAcanzables[i];
                 int y = dos.intValue();
                 String palabraprocesada = "";
                 palabraprocesada = palabraprocesada.concat(gramatica[y]).concat("=").concat(gramatica[y + 1]).concat("\n");
             }
-        } else {
-
-        }
+        } 
         return (Ngramatica);
     }
-
+/**
+ * Este metodo me comprueba si la gramtica es lineal por la derecha es decir de la forma <N>=T<N> o <N>=?
+ * @param Gramatica
+ * @return 
+ */
     public boolean LinealporDerecha(String[] Gramatica) {
         boolean T = true;
-        for (int i = 0; i < Gramatica.length; i++) {
+        for (int i = 0; i < Gramatica.length; i++) {// recorremos la gramtica por la parte derecha es decir las posiciones impares 
             int contador = 0;
             int contadorLanda = 0;
-            if (i % 2 != 0) {
+            if (i % 2 != 0) {// vamos a separar tokenizadamente  las posiciones impares 
                 String posicionado = Gramatica[i];
                 String[] AR = posicionado.split("<");
                 for (int j = 0; j < AR.length; j++) {
@@ -275,13 +279,13 @@ public class Gramatica {
                     if (ARactual.equals("?")) {
                         contadorLanda = contadorLanda + 1;
                     } else {
-                        int encontrado = ARactual.indexOf(">");
+                        int encontrado = ARactual.indexOf(">");//contaremos cuentas veces aparece un simpbolo para saber cuantos N hay 
                         if (encontrado != -1) {
                             contador = contador + 1;
 
                         }
 
-                        if (encontrado == -1 && contador > 1) {
+                        if (encontrado == -1 && contador > 1) {// si lo no lo encuentra y contador es mayor que uno quiere decir que no es lineal puesto hay mas N
                             T = false;
                         }
 
@@ -293,12 +297,12 @@ public class Gramatica {
                     return (false);
                 }
 
-                if (contador == 0) {
+                if (contador == 0) {// Si el contador es igual a 0 es porque entoncetro un T solo si es landa avanzara si no, no es lineal por derecha
                     if (contadorLanda != 1) {
                         System.out.println("No es lineal por landa");
                         return (false);
                     }
-                } else if (contador != 1) {
+                } else if (contador != 1) {// Si hay mas de un N tampoco es lineal por la derecha
                     System.out.println("No es lineal por N");
                     return (false);
                 }
@@ -307,7 +311,11 @@ public class Gramatica {
         System.out.println("LinealPorDerecha");
         return (true);
     }
-
+/**
+ * Este metodo me buscar en la parte derecha de la gramtica la forma<N>=T....<N> o <N>=?
+ * @param Gramatica
+ * @return 
+ */
     public boolean FormaEspecial(String[] Gramatica) {
         for (int i = 0; i < Gramatica.length; i++) {
 
@@ -348,7 +356,14 @@ public class Gramatica {
         System.out.println("Especial");
         return (true);
     }
-
+    
+/**
+ * Metodo el cual recibe el String que contiene la gramatica , este metodo retorna un vector el cual va guardar
+ * lo que esta antes del igual y lo que esta despues del igual, el vector resultando contendra en ciertas posiciones 
+ * lo que esta antes del igual y en ciertas posiciones lo que esta despues del igual
+ * @param NString
+ * @return 
+ */
     public String[] generarAF(String NString) {
         String variable1 = "";
         String[] tokens = NString.split("\n");
@@ -363,14 +378,19 @@ public class Gramatica {
 
             for (int j = 0; j < tokens2.length; j++) {
                 System.out.println(tokens2[j]);
-                //variable1 = tokens2[j];
+                
                 arreglo.add(tokens2[j]);
             }
         }
         String[] Gramaticatokenizada1 = arreglo.stream().toArray(String[]::new);
         return (Gramaticatokenizada1);
     }
-
+/**
+ * El metodo pares buscara en el vector generado anteriormente(generarAf) las posiciones pares 
+ * las cuales deben contener el lado izquierdo de la gramatica 
+ * @param gramatica
+ * @return 
+ */
     public String[] pares(String[] gramatica) {
 
         String variable1 = "";
@@ -397,7 +417,13 @@ public class Gramatica {
 
         return (pares);
     }
-
+    
+/**
+ * El metodo impares buscara en el vector generado anteriormente(generarAF) las posiciones impares 
+ * las cuales deben contener el lado derecho de la gramatica 
+ * @param gramatica
+ * @return 
+ */
     public String[] impares(String[] gramatica) {
 
         String variable1 = "";
@@ -422,13 +448,19 @@ public class Gramatica {
 
         return (impares);
     }
-
+/**
+ * Con base en la gramatica simplificada este metodo toma el vector generado lo parte y agrega en las filas y las columnas de una matriz todos los datos correspondientes
+ * @param gramatica
+ * @param w
+ * @return 
+ */
     public String[][] matriz(String[] gramatica, JTable w) {
 
         String primeraFila = "";
         String primeraColumna = "";
         String pares[] = pares(gramatica);
         String impares[] = impares(gramatica);
+        // Agrega las refecias de cada columna a un vector
         for (int i = 0; i < pares.length; i++) {
             String palabraA = pares[i];
             if (!primeraColumna.contains(palabraA)) {
@@ -436,6 +468,7 @@ public class Gramatica {
                 paresSinR.add(palabraA);
             }
         }
+        //Agrega las referencias de cada fila  a un vector
         for (int j = 0; j < impares.length; j++) {
             String[] actual = impares[j].split("<");
             String palabraActual = actual[0];
@@ -443,24 +476,25 @@ public class Gramatica {
             if (!palabraActual.equals("?")) {
                 if (!primeraFila.contains(palabraActual)) {
                     primeraFila = primeraFila.concat(palabraActual);
-                    imparesSinR.add(palabraActual);
+                    imparesSinR.add(palabraActual); 
                 }
             }
         }
+        //se convierten Arreaylist a Vectores para su utilizacion
         vectorParesSin = paresSinR.stream().toArray(String[]::new);
         vectorImparesSin = imparesSinR.stream().toArray(String[]::new);
-
+//Se crean variables para la distribucion de los datos en la matriz
         String[][] Matrix = new String[vectorParesSin.length + 1][vectorImparesSin.length + 2];
         paresR = vectorParesSin.length + 1;
         imparesR = vectorImparesSin.length + 1;
         vectordeimpares = vectorImparesSin;
         vectordepares = vectorParesSin;
-
+// Agrega los primeros datos a las columnas de la matriz
         for (int k = 0; k < vectorParesSin.length; k++) {
             String palabraAG = vectorParesSin[k];
             Matrix[k + 1][0] = palabraAG;
         }
-
+// agrega primeros datos a las filas de la matriz
         for (int l = 0; l < vectorImparesSin.length; l++) {
             String palabraAG = vectorImparesSin[l];
             Matrix[0][l + 1] = palabraAG;
@@ -484,6 +518,7 @@ public class Gramatica {
                     }
 
                     String actual = "";
+                    // busca la posicion en la que se debe agregar
                     if (x == vectorImparesSin.length - 1 && y == vectorParesSin.length - 1) {
 
                         actual = Matrix[y + 1][x + 1];
@@ -509,6 +544,7 @@ public class Gramatica {
 
             }
         }
+        // Llena los espacion null con error generando un estado de error
         for (int i = 0; i < vectorParesSin.length + 1; i++) {
             for (int j = 0; j < vectorImparesSin.length + 1; j++) {
                 if (Matrix[i][j] == null) {
@@ -516,11 +552,11 @@ public class Gramatica {
                 }
             }
         }
-
+// precisa los estados de aceptacion en 0
         for (int i = 1; i < vectorImparesSin.length; i++) {
             Matrix[i][vectorImparesSin.length + 1] = "0";
         }
-
+//cambia el estado 0 por un estado de aceptacion 1
         for (int i = 0; i < gramatica.length; i++) {
             if (i % 2 != 0) {
                 String posicionld = gramatica[i];
@@ -537,6 +573,7 @@ public class Gramatica {
             }
         }
 
+        // Pasa la matriz a la tabla 
         Matrix[0][0] = "Estados";
 
         DefaultTableModel tb = new DefaultTableModel();
@@ -563,66 +600,10 @@ public class Gramatica {
 
         return (Matrix);
     }
-
-    public boolean Deterministico(String[][] Matrix) {
-        boolean Esdeterministico = true;
-        for (int i = 1; i < vectorParesSin.length + 1; i++) {
-            for (int j = 0; j < vectorImparesSin.length + 1; j++) {
-                String palabraactual = Matrix[i][j];
-                int x = palabraactual.indexOf(",");
-                if (x != -1) {
-                    return (false);
-                }
-            }
-        }
-        System.out.println("esDeterministico");
-        return (Esdeterministico);
-    }
-
-    public void noDeterministico(String[][] Matrix) {
-
-        String[] nuevos;
-        String f;
-        ArrayList<String> m = new ArrayList<>();
-        String variable = "";
-        String Variable2 = "";
-
-        boolean siguiente = true;
-        for (int i = 0; i < vectorImparesSin.length + 1; i++) {
-            String d = Matrix[1][i];
-            variable = variable.concat(d);
-            m.add(d);
-        }
-        int contador = 1;
-        while (siguiente == true) {
-            Variable2 = m.get(contador);
-            nuevos = Variable2.split(",");
-              f = "";
-            for (int i = 0; i < nuevos.length; i++) {
-                String s = nuevos[i];
-                int x = paresSinR.indexOf(s);
-                String contiene = Matrix[x+1][i+1];
-                boolean contenido = m.contains(contiene);
-                if (contenido == false) {
-                    f = f.concat(contiene);
-                }
-            if (f.equals("")) {
-                siguiente = false;
-                break;
-            }
-          
-           
-                contador = contador + 1;
-                m.add(f);
-                variable = variable.concat(f);
-            
-        }
-           
-
-    }
-         String[][] mat = new String[vectorParesSin.length][vectorImparesSin.length];
-    }
-
+/**
+ * metodo que retorna un String separado por coma
+ * @return 
+ */
     public String agregarComa() {
 
         String[] vectorImparesSin2 = imparesSinR.stream().toArray(String[]::new);

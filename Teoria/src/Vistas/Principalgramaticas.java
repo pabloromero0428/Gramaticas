@@ -89,6 +89,7 @@ public class Principalgramaticas extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 650));
@@ -137,7 +138,7 @@ public class Principalgramaticas extends javax.swing.JFrame {
                 btnmodificarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnmodificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 200, 60));
+        getContentPane().add(btnmodificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 190, 60));
 
         Gramaticasimplificada.setColumns(20);
         Gramaticasimplificada.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
@@ -188,26 +189,35 @@ public class Principalgramaticas extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 200, 60));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 190, 60));
 
-        jButton2.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jButton2.setText("Automata ");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 529, 170, 60));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 529, 180, 60));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/rengarenk-arkaplanlar-52-1920x1200.jpg"))); // NOI18N
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 940, 650));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ *Boton que modifica la gramatica 
+ * @param evt 
+ */
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         Gramaticasimplificada.setEnabled(true);
         txtgramatica.setEnabled(true);
 
     }//GEN-LAST:event_btnmodificarActionPerformed
-
+/**
+ * Boton que simplifica la gramatica
+ * @param evt 
+ */
     private void btnsimplificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimplificarActionPerformed
         Gramatica g = new Gramatica();
         String[] gram = g.Gramatica(txtgramatica.getText());
@@ -222,7 +232,10 @@ public class Principalgramaticas extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnsimplificarActionPerformed
-
+/**
+ * Boton para cargar la gramatica
+ * @param evt 
+ */
     private void btncargargramaticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncargargramaticaActionPerformed
         if (seleccionado.showDialog(null, "ABRIR ARCHIVO") == JFileChooser.APPROVE_OPTION) {
             archivo = seleccionado.getSelectedFile();
@@ -236,7 +249,10 @@ public class Principalgramaticas extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btncargargramaticaActionPerformed
-
+/**
+ * Boton guardar gramatica 
+ * @param evt 
+ */
     private void btnguardargramaticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardargramaticaActionPerformed
         if (seleccionado.showDialog(null, "GUARDAR TEXTO") == JFileChooser.APPROVE_OPTION) {
             archivo = seleccionado.getSelectedFile();
@@ -253,12 +269,18 @@ public class Principalgramaticas extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnguardargramaticaActionPerformed
-
+/**
+ * Boton para guardar la modificacion
+ * @param evt 
+ */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Gramaticasimplificada.setEnabled(false);
         txtgramatica.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
-
+/**
+ * Boton para generar el automata
+ * @param evt 
+ */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Automata a = new Automata();
         Gramatica g = new Gramatica();
@@ -268,7 +290,7 @@ public class Principalgramaticas extends javax.swing.JFrame {
         boolean Especial = g.FormaEspecial(gram);
         boolean Lineal = g.LinealporDerecha(gram);
           
-        if (Especial == true && Lineal == true) {
+        if (Especial == true && Lineal == true) {//condicion que controla si es especial o lineal
             a.gramaticaSimplificada2.setText(Gramaticasimplificada.getText());
             g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram));
             g.pares(g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram)));
@@ -338,6 +360,7 @@ public class Principalgramaticas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField txtInalcanzables;
