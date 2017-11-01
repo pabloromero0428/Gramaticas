@@ -89,6 +89,7 @@ public class Automata extends javax.swing.JFrame {
 
         gramaticaSimplificada2.setColumns(20);
         gramaticaSimplificada2.setRows(5);
+        gramaticaSimplificada2.setEnabled(false);
         jScrollPane1.setViewportView(gramaticaSimplificada2);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 36, 280, 147));
@@ -104,6 +105,7 @@ public class Automata extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        matrix.setEnabled(false);
         jScrollPane2.setViewportView(matrix);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 36, -1, 147));
@@ -153,6 +155,7 @@ public class Automata extends javax.swing.JFrame {
 
         mostrarResultados.setColumns(20);
         mostrarResultados.setRows(5);
+        mostrarResultados.setEnabled(false);
         jScrollPane4.setViewportView(mostrarResultados);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
