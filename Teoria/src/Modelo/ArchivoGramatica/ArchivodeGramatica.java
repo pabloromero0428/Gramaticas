@@ -11,7 +11,8 @@ import java.io.FileOutputStream;
 
 /**
  *
- * @author JuanPablo
+ * @author JuanPabloRomeroLaverde
+ * Kevin Esteban Gutierres
  */
 public class ArchivodeGramatica {
     

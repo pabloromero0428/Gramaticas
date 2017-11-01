@@ -25,7 +25,8 @@ import teoria.Gramatica;
 
 /**
  *
- * @author kevin
+ * @author JuanPabloRomeroLaverde
+ * Kevin Esteban Gutierres
  */
 public class Automata extends javax.swing.JFrame {
       

@@ -17,7 +17,8 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author JuanPablo
+ * @author JuanPabloRomeroLaverde
+ * Kevin Esteban Gutierres
  */
 public class Gramatica {
 

@@ -7,7 +7,8 @@ package Vistas;
 
 /**
  *
- * @author kevin
+ * @author JuanPabloRomeroLaverde
+ * Kevin Esteban Gutierres
  */
 public class Inicio extends javax.swing.JFrame {
 

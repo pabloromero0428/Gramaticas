@@ -13,7 +13,8 @@ import teoria.Gramatica;
 
 /**
  *
- * @author JuanPablo
+ * @author JuanPabloRomeroLaverde
+ * Kevin Esteban Gutierres
  */
 public class Principalgramaticas extends javax.swing.JFrame {
 

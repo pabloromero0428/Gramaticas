@@ -5,6 +5,11 @@
  */
 package teoria;
 
+/**
+ *
+ * @author JuanPabloRomeroLaverde
+ * Kevin Esteban Gutierres
+ */
 
 import Vistas.Inicio;
 import Vistas.Principalgramaticas;

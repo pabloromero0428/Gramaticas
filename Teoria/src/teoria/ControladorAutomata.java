@@ -12,7 +12,8 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author kevin
+ * @author JuanPabloRomeroLaverde
+ * Kevin Esteban Gutierres
  */
 public class ControladorAutomata {
 
