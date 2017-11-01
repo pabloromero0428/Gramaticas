@@ -25,9 +25,9 @@ public class ArchivodeGramatica {
     
     /**
      * Este Metodo abre el archivo de texto en el cual se encuentra la gramatica
-     * @param archivo
-     * @return 
-     */
+     * @param archivo a
+     * @return un estring con el archivo
+     */  
     public String AbrirArchivoTxtGramatica(File archivo){
         String contenido="";
         try {
@@ -41,7 +41,7 @@ public class ArchivodeGramatica {
         }
         return contenido;
     }
-    
+        
     /*Guardar archivo de texto*/
     public String GuardarATexto(File archivo, String contenido){
         String respuesta=null;

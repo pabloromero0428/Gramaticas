@@ -206,37 +206,49 @@ public class Principalgramaticas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 /**
- *Boton que modifica la gramatica 
- * @param evt 
- */
+     * Boton que modifica la gramatica
+     *
+     * @param evt
+     */
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
-        Gramaticasimplificada.setEnabled(true);
-        txtgramatica.setEnabled(true);
+        if (txtgramatica.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "No hay Datos para operar");
+        } else {
 
-    }//GEN-LAST:event_btnmodificarActionPerformed
-/**
- * Boton que simplifica la gramatica
- * @param evt 
- */
-    private void btnsimplificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimplificarActionPerformed
-        Gramatica g = new Gramatica();
-        String[] gram = g.Gramatica(txtgramatica.getText());
-        txtVivos.setText(g.Vivos(gram));
-        txtMuertos.setText(g.Muertos(txtVivos.getText(), gram));
-        txtInalcanzables.setText(g.inalcanzables(gram));
-        Gramaticasimplificada.setText(g.impresion(g.posArray, g.posAlcanzablesArray, gram));
-        String[] nuevagramatica = g.Gramatica(Gramaticasimplificada.getText());
-        if (Gramaticasimplificada.getText().equals("")) {
-            Gramaticasimplificada.setText(txtgramatica.getText());
+            Gramaticasimplificada.setEnabled(true);
+            txtgramatica.setEnabled(true);
         }
+    }//GEN-LAST:event_btnmodificarActionPerformed
+    /**
+     * Boton que simplifica la gramatica
+     *
+     * @param evt
+     */
+    private void btnsimplificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimplificarActionPerformed
+        if (txtgramatica.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "No hay Datos para operar");
+        } else {
 
+            Gramatica g = new Gramatica();
+            String[] gram = g.Gramatica(txtgramatica.getText());
+            txtVivos.setText(g.Vivos(gram));
+            txtMuertos.setText(g.Muertos(txtVivos.getText(), gram));
+            txtInalcanzables.setText(g.inalcanzables(gram));
+            Gramaticasimplificada.setText(g.impresion(g.posArray, g.posAlcanzablesArray, gram));
+            String[] nuevagramatica = g.Gramatica(Gramaticasimplificada.getText());
+            if (Gramaticasimplificada.getText().equals("")) {
+                Gramaticasimplificada.setText(txtgramatica.getText());
+            }
 
+        }
     }//GEN-LAST:event_btnsimplificarActionPerformed
-/**
- * Boton para cargar la gramatica
- * @param evt 
- */
+    /**
+     * Boton para cargar la gramatica
+     *
+     * @param evt
+     */
     private void btncargargramaticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncargargramaticaActionPerformed
+
         if (seleccionado.showDialog(null, "ABRIR ARCHIVO") == JFileChooser.APPROVE_OPTION) {
             archivo = seleccionado.getSelectedFile();
             if (archivo.canRead()) {
@@ -248,104 +260,84 @@ public class Principalgramaticas extends javax.swing.JFrame {
                 }
             }
         }
+
     }//GEN-LAST:event_btncargargramaticaActionPerformed
-/**
- * Boton guardar gramatica 
- * @param evt 
- */
+    /**
+     * Boton guardar gramatica
+     *
+     * @param evt
+     */
     private void btnguardargramaticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardargramaticaActionPerformed
-        if (seleccionado.showDialog(null, "GUARDAR TEXTO") == JFileChooser.APPROVE_OPTION) {
-            archivo = seleccionado.getSelectedFile();
-            if (archivo.getName().endsWith("txt")) {
-                String contenido = Gramaticasimplificada.getText();
-                String respuesta = archivog.GuardarATexto(archivo, contenido);
-                if (respuesta != null) {
-                    JOptionPane.showMessageDialog(null, respuesta);
+        if (txtgramatica.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "No hay Datos para operar");
+        } else {
+
+            if (seleccionado.showDialog(null, "GUARDAR TEXTO") == JFileChooser.APPROVE_OPTION) {
+                archivo = seleccionado.getSelectedFile();
+                if (archivo.getName().endsWith("txt")) {
+                    String contenido = Gramaticasimplificada.getText();
+                    String respuesta = archivog.GuardarATexto(archivo, contenido);
+                    if (respuesta != null) {
+                        JOptionPane.showMessageDialog(null, respuesta);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al guardar texto.");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Error al guardar texto.");
+                    JOptionPane.showMessageDialog(null, "El texto se debe guardar en un formato de texto.");
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "El texto se debe guardar en un formato de texto.");
             }
         }
     }//GEN-LAST:event_btnguardargramaticaActionPerformed
-/**
- * Boton para guardar la modificacion
- * @param evt 
- */
+    /**
+     * Boton para guardar la modificacion
+     *
+     * @param evt
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Gramaticasimplificada.setEnabled(false);
-        txtgramatica.setEnabled(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
-/**
- * Boton para generar el automata
- * @param evt 
- */
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Automata a = new Automata();
-        Gramatica g = new Gramatica();
-        String[] gram = g.Gramatica(Gramaticasimplificada.getText());
-        String[][]mat;
-        
-        boolean Especial = g.FormaEspecial(gram);
-        boolean Lineal = g.LinealporDerecha(gram);
-          
-        if (Especial == true && Lineal == true) {//condicion que controla si es especial o lineal
-            a.gramaticaSimplificada2.setText(Gramaticasimplificada.getText());
-            g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram));
-            g.pares(g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram)));
-            g.impares(g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram)));
-            mat=g.matriz(gram, a.matrix);
-            g.agregarComa();
-           
-          
-            a.setVisible(true);
-            super.dispose();
-        } else if( Especial == false && Lineal == true){
-            
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "La gramatica no es regular por lo tanto no se puede realizar el automata");
+        if (txtgramatica.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "No hay Datos para operar");
+        } else {
+            Gramaticasimplificada.setEnabled(false);
+            txtgramatica.setEnabled(false);
         }
+    }//GEN-LAST:event_jButton1ActionPerformed
+    /**
+     * Boton para generar el automata
+     *
+     * @param evt
+     */
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (txtgramatica.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "No hay Datos para operar");
+        } else {
 
+            Automata a = new Automata();
+            Gramatica g = new Gramatica();
+            String[] gram = g.Gramatica(Gramaticasimplificada.getText());
+            String[][] mat;
 
+            boolean Especial = g.FormaEspecial(gram);
+            boolean Lineal = g.LinealporDerecha(gram);
+
+            if (Especial == true && Lineal == true) {//condicion que controla si es especial o lineal
+                a.gramaticaSimplificada2.setText(Gramaticasimplificada.getText());
+                g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram));
+                g.pares(g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram)));
+                g.impares(g.generarAF(g.impresion(g.posArray, g.posAlcanzablesArray, gram)));
+                mat = g.matriz(gram, a.matrix);
+                g.agregarComa();
+
+                a.setVisible(true);
+                super.dispose();
+            } else if (Especial == false && Lineal == true) {
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "La gramatica no es regular por lo tanto no se puede realizar el automata");
+            }
+
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    /**
-     * u
-     *
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(Principalgramaticas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(Principalgramaticas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(Principalgramaticas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(Principalgramaticas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new Principalgramaticas().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Gramaticasimplificada;

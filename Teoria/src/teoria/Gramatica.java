@@ -43,10 +43,9 @@ public class Gramatica {
     }
 
     /**
-     * METODO EL CUAL CREA UN ARREGLO CON LOS ELEMENTOS DE LA GRAMATICA
-     *
+     * METODO EL CUAL CREA UN ARREGLO CON LOS ELEMENTOS DE LA GRAMATICA     *
      * @param archivo
-     * @return
+     * @return un vector con la gramatica 
      */
     public String[] Gramatica(String archivo) {
 
@@ -70,7 +69,7 @@ public class Gramatica {
      *Este metodo utiliza la gramatica ingresada, la descompone tokenizadamente y realiza interacciones 
      *recorriendo toda la gramatica creada y guardada en vectores para asi encontrar cuales son los N vivos
      * @param gramatica
-     * @return
+     * @return un string con los N vivos
      */
     public String Vivos(String[] gramatica) {
 
@@ -149,7 +148,7 @@ public class Gramatica {
      *Este metodo toma lo N vivos para buscar recorriendo la gramatica cuales N terminales esta muertos 
      * @param NVivos
      * @param gramatica
-     * @return
+     * @return un strinf con los N muertos
      */
     public String Muertos(String NVivos, String[] gramatica) {
         ArrayList<String> Nmuertos = new ArrayList<>();
@@ -177,7 +176,7 @@ public class Gramatica {
     /**
      *Este metodo buscar ir poscion por posicion de la grmatica desde las partes impares del vector 
      * @param gramatica
-     * @return
+     * @return un string con lo N inalcanzables
      */
     public String inalcanzables(String[] gramatica) {
         ArrayList<String> Alcanzables = new ArrayList<>();
@@ -226,7 +225,7 @@ public class Gramatica {
      * @param posVivos
      * @param posAlcanzables
      * @param gramatica
-     * @return
+     * @return la gramatica en forma de string
      */
     public String impresion(ArrayList posVivos, ArrayList posAlcanzables, String[] gramatica) {
         String Ngramatica = "";
@@ -262,9 +261,9 @@ public class Gramatica {
         return (Ngramatica);
     }
 /**
- * Este metodo me comprueba si la gramtica es lineal por la derecha es decir de la forma <N>=T<N> o <N>=?
+ * Este metodo me comprueba si la gramtica es lineal por la derecha es decir de la forma correcta
  * @param Gramatica
- * @return 
+ * @return  verdadero o falso si es lineal por la derecha
  */
     public boolean LinealporDerecha(String[] Gramatica) {
         boolean T = true;
@@ -312,9 +311,9 @@ public class Gramatica {
         return (true);
     }
 /**
- * Este metodo me buscar en la parte derecha de la gramtica la forma<N>=T....<N> o <N>=?
+ * Este metodo me buscar en la parte derecha de la gramtica la forma
  * @param Gramatica
- * @return 
+ * @return verdadero o falso si es de la forma especial
  */
     public boolean FormaEspecial(String[] Gramatica) {
         for (int i = 0; i < Gramatica.length; i++) {
@@ -362,7 +361,7 @@ public class Gramatica {
  * lo que esta antes del igual y lo que esta despues del igual, el vector resultando contendra en ciertas posiciones 
  * lo que esta antes del igual y en ciertas posiciones lo que esta despues del igual
  * @param NString
- * @return 
+ * @return  un vector con posicion de la gramatica tokenizada
  */
     public String[] generarAF(String NString) {
         String variable1 = "";
@@ -389,7 +388,7 @@ public class Gramatica {
  * El metodo pares buscara en el vector generado anteriormente(generarAf) las posiciones pares 
  * las cuales deben contener el lado izquierdo de la gramatica 
  * @param gramatica
- * @return 
+ * @return  un vector con las posicion de la izquierda o pares segun vector de la gramatica
  */
     public String[] pares(String[] gramatica) {
 
@@ -422,7 +421,7 @@ public class Gramatica {
  * El metodo impares buscara en el vector generado anteriormente(generarAF) las posiciones impares 
  * las cuales deben contener el lado derecho de la gramatica 
  * @param gramatica
- * @return 
+ * @return  un vector con el lado derecho o posiciones impares segun el vector de la gramatica
  */
     public String[] impares(String[] gramatica) {
 
@@ -452,7 +451,7 @@ public class Gramatica {
  * Con base en la gramatica simplificada este metodo toma el vector generado lo parte y agrega en las filas y las columnas de una matriz todos los datos correspondientes
  * @param gramatica
  * @param w
- * @return 
+ * @return  una matriz con el automata creado
  */
     public String[][] matriz(String[] gramatica, JTable w) {
 
@@ -602,7 +601,7 @@ public class Gramatica {
     }
 /**
  * metodo que retorna un String separado por coma
- * @return 
+ * @return  un string con los T de la gramatica separados por comas
  */
     public String agregarComa() {
 

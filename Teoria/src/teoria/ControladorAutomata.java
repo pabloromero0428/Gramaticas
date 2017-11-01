@@ -68,8 +68,8 @@ public class ControladorAutomata {
     }
 /**
  * Evalúa y determina si la hilera ingresada se acepta o se rechaza 
- * @param a
- * @return 
+ * @param a.
+ * @return un string con la respuesta
  */
     public String seguimiento(String a) {
         char ch;
@@ -109,7 +109,7 @@ public class ControladorAutomata {
  * Busca en la respectiva fila si esta el dato
  * @param fila
  * @param a
- * @return 
+ * @return un numero con la fila encontrada
  */
     private int buscarEnFila(int fila, String a) {
         String c;
@@ -127,7 +127,7 @@ public class ControladorAutomata {
  * busca en la columna si esta el dato
  * @param columna
  * @param a
- * @return 
+ * @return  un numero con la columna encontrada
  */
     private int buscarEnColumna(int columna, String a) {
         String c;
@@ -144,7 +144,7 @@ public class ControladorAutomata {
 /**
  *Agrega estados que no se encuentran en la columna pero que fueron agregados al unir las particiones
  * @param estado
- * @return 
+ * @return verdadero o falso para el estado
  */
     private boolean agregarEstado(String estado) {
         if (estado.isEmpty() || estado.contains(" ")) {
@@ -191,7 +191,7 @@ public class ControladorAutomata {
 /**
  * Realiza la partición de los estados que tienen el mismo estado de aceptación
  * @param estado
- * @return 
+ * @return un numero con un conjunto en los estado de aceptacion
  */
     private int retornarConjunto(String estado) {
         int i = 0;
@@ -208,7 +208,7 @@ public class ControladorAutomata {
 /**
  * metodo que busca dependiendo del estado a que fila pertenece 
  * @param estado
- * @return 
+ * @return la fila que pertenece 
  */
     private int buscarFilaDeEstado(String estado) {
         for (int i = 1; i < tabla.getRowCount(); i++) {
@@ -233,7 +233,7 @@ public class ControladorAutomata {
     }
 /**
  * metodo que comprueba si es determinisitico 
- * @return 
+ * @return  una respuesta
  */
     public String comprobarDeterministico() {
 
@@ -265,7 +265,7 @@ public class ControladorAutomata {
     }
 /**
  * metodo que convierte el automata ND a deterministico
- * @return 
+ * @return  un numero de acuerdo a la convercion
  */
     public int pasarADeterminitico() {
         if (comprobarDeterministico2() == 1) {
@@ -359,7 +359,7 @@ public class ControladorAutomata {
  * Determina si los dos estados son iguales en cualquier orden
  * @param estado
  * @param estadoN
- * @return 
+ * @return  verdadero o falso si dos estados son iguales
  */
     private boolean verificaIgual(String estado, String estadoN) {
         int cont = 0;
@@ -376,7 +376,7 @@ public class ControladorAutomata {
 /**
  *  Comprueba si el estado ingresado como parámetro está en la tabla
  * @param estado
- * @return 
+ * @return verdadero o falso si el estado esta contenido en 
  */
     public boolean contieneEstado(String estado) {
         String aux;
@@ -646,7 +646,7 @@ public class ControladorAutomata {
 /**
  *  Ordena una hilera de manera descendente
  * @param hilera
- * @return 
+ * @return  una hilera ordenada
  */
     private String sortString(String hilera) {
         int tamañoHilera = hilera.length();
